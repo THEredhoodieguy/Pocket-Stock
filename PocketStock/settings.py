@@ -55,7 +55,10 @@ ROOT_URLCONF = 'PocketStock.urls'
 TEMPLATES = [
     {
         'BACKEND': 'django.template.backends.django.DjangoTemplates',
-        'DIRS': [],
+        'DIRS': [
+            './templates',
+            './stocks/templates',
+        ],
         'APP_DIRS': True,
         'OPTIONS': {
             'context_processors': [
