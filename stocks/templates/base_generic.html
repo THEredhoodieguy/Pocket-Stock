@@ -10,7 +10,8 @@
     <!-- Used to add any additional static CSS files -->
     {% load staticfiles %}
     <link rel="stylesheet" href="{% static 'css/style.css' %}"/>
-
+    <link rel="stylesheet" href="{% static 'css/landing-page.css' %}"/>
+    
 </head>
 
 <body>
@@ -20,32 +21,20 @@
         <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarSupportedContent" aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
             <span class="navbar-toggler-icon"></span>
         </button>
-
-        <div class="collapse navbar-collapse" id="navbarSupportedContent">
-            <ul class="navbar-nav mr-auto">
-                <!-- <li class="nav-item active">
-                    <a class="nav-link" href="#">Home <span class="sr-only">(current)</span></a>
-                </li>
-                <li class="nav-item">
-                    <a class="nav-link" href="#">Link</a>
-                </li>
-                <li class="nav-item">
-                    <a class="nav-link disabled" href="#">Disabled</a>
-                </li> -->
-
-                {% if user.is_authenticated %}
+<div class="collapse navbar-collapse" id="navbarResponsive">
+          <ul class="navbar-nav ml-auto">
+            {% if user.is_authenticated %}
                 <!-- <li class="nav-item ">User: {{ user.get_username }}</li> -->
                 <span class="navbar-text">User: {{ user.get_username }}</span>
-                <li class="nav-item active"><a class="nav-link" href="{% url 'logout' %}?next={{ request.path }}">Logout</a></li>
+                <li class="nav-item "><a class="nav-link" href="{% url 'logout' %}?next={{ request.path }}">Logout</a></li>
                 {% else %}
-                <li class="nav-item active"><a class="nav-link" href="{% url 'login' %}?next={{ request.path }}">Login</a></li>
-                {% endif %}
+                <li class="nav-item"><a class="nav-link" href="{% url 'login' %}?next={{ request.path }}">Login</a></li>
+            {% endif %}
 
-            </ul>
-            <form class="form-inline my-2 my-lg-0">
-                <input class="form-control mr-sm-2" type="text" placeholder="Search" aria-label="Search">
-                <button class="btn btn-outline-success my-2 my-sm-0" type="submit">Search</button>
-            </form>
+            <li class="nav-item">
+              <a class="nav-link" href="/accounts/signup/">SignUp</a>
+            </li>
+          </ul>
         </div>
     </nav>
     {% endblock %}
@@ -86,8 +75,27 @@
 
     {% block footer %}
         <footer>
-            <p>&copy; PocketStock 2017</p>
-        </footer>
+      <div class="container">
+        <ul class="list-inline">
+          <li class="list-inline-item">
+            <a href="#">Home</a>
+          </li>
+          <li class="footer-menu-divider list-inline-item">&sdot;</li>
+          <li class="list-inline-item">
+            <a href="#about">About</a>
+          </li>
+          <li class="footer-menu-divider list-inline-item">&sdot;</li>
+          <li class="list-inline-item">
+            <a href="#services">Services</a>
+          </li>
+          <li class="footer-menu-divider list-inline-item">&sdot;</li>
+          <li class="list-inline-item">
+            <a href="#contact">Contact</a>
+          </li>
+        </ul>
+        <p class="copyright text-muted small">Copyright &copy; Pocket Stock 2017. All Rights Reserved</p>
+      </div>
+    </footer>
     {% endblock %}
 
     <!-- Bootstrap core JavaScript
