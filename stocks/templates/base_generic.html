@@ -18,7 +18,7 @@
     <!-- Custom fonts for this template -->
     <link href="https://fonts.googleapis.com/css?family=Lato:300,400,700,300italic,400italic,700italic" rel="stylesheet" type="text/css">
     
-<<<<<<< HEAD
+
     <!-- Used to add any additional static CSS files -->
     {% load staticfiles %}
     <link rel="stylesheet" href="{% static 'css/style.css' %}"/>
@@ -29,11 +29,11 @@
 <body>
     {% block header %}
     <nav class="navbar navbar-expand-lg navbar-dark bg-dark">
-        <a class="navbar-brand" href="#">Pocket[Stock]</a>
+        <a class="navbar-brand" href="/">Pocket[Stock]</a>
         <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarSupportedContent" aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
             <span class="navbar-toggler-icon"></span>
         </button>
-<div class="collapse navbar-collapse" id="navbarResponsive">
+    <div class="collapse navbar-collapse" id="navbarResponsive">
           <ul class="navbar-nav ml-auto">
             {% if user.is_authenticated %}
                 <!-- <li class="nav-item ">User: {{ user.get_username }}</li> -->
@@ -44,40 +44,18 @@
             {% endif %}
 
             <li class="nav-item">
-              <a class="nav-link" href="/accounts/signup/">SignUp</a>
-=======
-  </head>
-
-  <body>
-
-    <!-- Navigation -->
-    <nav class="navbar navbar-expand-lg navbar-light bg-light fixed-top">
-      <div class="container">
-        <a class="navbar-brand" href="#">Pocket Stock</a>
-        <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarResponsive" aria-controls="navbarResponsive" aria-expanded="false" aria-label="Toggle navigation">
-          <span class="navbar-toggler-icon"></span>
-        </button>
-        <div class="collapse navbar-collapse" id="navbarResponsive">
-          <ul class="navbar-nav ml-auto">
-            <li class="nav-item">
-              <a class="nav-link" href="#">About</a>
-            </li>
-            <li class="nav-item">
-              <a class="nav-link" href="#">Services</a>
-            </li>
-            <li class="nav-item">
-              <a class="nav-link" href="#">Contact</a>
->>>>>>> bf73779dbc63d4d2596b1cce2f651dc072194bc9
-            </li>
+                <a class="nav-link" href="/accounts/signup/">SignUp</a></li>
           </ul>
-        </div>
-      </div>
+    </div>
     </nav>
     <br>
+
+    {% endblock %}
+
     <!-- Stock header bar, displays current popular stock valuations -->
     <div class="container bg-light">
       <div class="row">
-        <div class="col-12" <!-- style="margin-top: 10px" -->>
+        <div class="col-12"> <!-- style="margin-top: 10px" -->>
           <p>AAPL: 800, MSFT: 750, GOOG: 600, </p>
         </div>
       </div>
@@ -90,7 +68,8 @@
         <div class="col-md-2"></div>
         <div class="col-md-8">
           {% block content%}
-          <h1>Hello world!</h1>
+
+            <h1>Hello world!</h1>
             <p>Lorem ipsum dolor sit amet, consectetur adipiscing elit. Maecenas quis congue diam. Phasellus malesuada eget velit ut rhoncus. Nunc congue diam id sem tincidunt mattis. Sed eget laoreet dolor. Aliquam suscipit porttitor lacus eget volutpat. Maecenas at felis nibh. Nunc et gravida justo. Duis quis sapien ligula. Proin consequat dictum mi, eget interdum risus tincidunt non.
           }
 
@@ -110,30 +89,6 @@
 
 
     <!-- Footer -->
-    <footer>
-      <div class="container">
-        <ul class="list-inline">
-          <li class="list-inline-item">
-            <a href="#">Home</a>
-          </li>
-          <li class="footer-menu-divider list-inline-item">&sdot;</li>
-          <li class="list-inline-item">
-            <a href="#about">About</a>
-          </li>
-          <li class="footer-menu-divider list-inline-item">&sdot;</li>
-          <li class="list-inline-item">
-            <a href="#services">Services</a>
-          </li>
-          <li class="footer-menu-divider list-inline-item">&sdot;</li>
-          <li class="list-inline-item">
-            <a href="#contact">Contact</a>
-          </li>
-        </ul>
-        <p class="copyright text-muted small">Copyright &copy; Pocket Stock 2017. All Rights Reserved</p>
-      </div>
-    </footer>
-
-<<<<<<< HEAD
     {% block footer %}
         <footer>
       <div class="container">
@@ -164,6 +119,5 @@
     <script src="vendor/popper/popper.min.js"></script>
     <script src="vendor/bootstrap/js/bootstrap.min.js"></script>
   </body>
->>>>>>> bf73779dbc63d4d2596b1cce2f651dc072194bc9
 
 </html>
