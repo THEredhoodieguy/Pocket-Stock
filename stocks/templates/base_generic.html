@@ -17,12 +17,13 @@
 
     <!-- Custom fonts for this template -->
     <link href="https://fonts.googleapis.com/css?family=Lato:300,400,700,300italic,400italic,700italic" rel="stylesheet" type="text/css">
-    
 
     <!-- Used to add any additional static CSS files -->
     {% load staticfiles %}
     <link rel="stylesheet" href="{% static 'css/style.css' %}"/>
     <link rel="stylesheet" href="{% static 'css/landing-page.css' %}"/>
+
+    {% block head %}{% endblock %}
     
 </head>
 
@@ -110,9 +111,10 @@
     </footer>
     {% endblock %}
     <!-- Bootstrap core JavaScript -->
-    <script src="vendor/jquery/jquery.min.js"></script>
+    <!-- We don't have these files stored locally, need to download them for the server or find a CDN for them -->
+    <!-- <script src="vendor/jquery/jquery.min.js"></script>
     <script src="vendor/popper/popper.min.js"></script>
-    <script src="vendor/bootstrap/js/bootstrap.min.js"></script>
+    <script src="vendor/bootstrap/js/bootstrap.min.js"></script> -->
   </body>
 
 </html>

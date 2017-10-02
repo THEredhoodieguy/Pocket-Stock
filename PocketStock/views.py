@@ -11,11 +11,16 @@ from django.contrib.auth.forms import AdminPasswordChangeForm, PasswordChangeFor
 from django.contrib.auth import update_session_auth_hash
 from django.contrib import messages
 
+from social_django.models import UserSocialAuth
+
+from PocketStock import duo_auth
+
 # Create your views here.
 def home(request):
     return render(request,'base_generic.html');
 
 @login_required
+@duo_auth.duo_auth_required
 def settings(request):
     user = request.user
 
@@ -33,6 +38,7 @@ def settings(request):
 
 
 @login_required
+@duo_auth.duo_auth_required
 def password(request):
     if request.user.has_usable_password():
         PasswordForm = PasswordChangeForm

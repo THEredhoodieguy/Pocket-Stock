@@ -16,7 +16,7 @@ Including another URLconf
 from django.conf.urls import url, include
 from django.contrib import admin
 from django.contrib.auth import views as auth_views
-from . import views
+from . import views, duo_auth
 
 urlpatterns = [
     url(r'^$', views.home, name='home'),
@@ -29,5 +29,8 @@ urlpatterns = [
     url(r'^logout/$', auth_views.logout, name='logout'),
 
     url(r'^settings/$', views.settings, name='settings'),
-    url(r'^settings/password/$', views.password, name='password')
+    url(r'^settings/password/$', views.password, name='password'),
+
+    url(r'^accounts/duo_login', duo_auth.login),
+    url(r'^accounts/duo_logout/$', duo_auth.logout),
 ]
