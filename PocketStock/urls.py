@@ -33,4 +33,6 @@ urlpatterns = [
 
     url(r'^accounts/duo_login', duo_auth.login),
     url(r'^accounts/duo_logout/$', duo_auth.logout),
+    url(r'^home/$', views.home, name='homepage'),
+
 ]
