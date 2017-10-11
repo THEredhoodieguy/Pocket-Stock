@@ -75,7 +75,14 @@
     <!-- Page Content -->
     <div class="container">
 
-       <h1 class="text-center default-head">Welcome {{ user.get_username }}!</h1>
+      <h1 class="text-center default-head">Welcome {{ user.get_username }}!</h1>
+
+      <h1>{{ transactions }}</h1>
+
+      {% for obj in transactions %}
+        <h1>{{ obj.amountSpent }}</h1>
+        <h1>Stuff</h1>
+      {% endfor %}
 
       <div class="row card-container">
         <!-- /.col-lg-3 -->
