@@ -1,0 +1,226 @@
+<!DOCTYPE html>
+<html lang="en">
+
+  <head>
+
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+    <meta name="description" content="">
+    <meta name="author" content="">
+
+    <title>Shop Homepage - Start Bootstrap Template</title>
+
+    <!-- Bootstrap core CSS -->
+    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0-beta/css/bootstrap.min.css" integrity="sha384-/Y6pD6FV/Vv2HJnA6t+vslU6fwYXjCFtcEpHbNJ0lyAFsXTsjBbfaDjzALeQsN6M" crossorigin="anonymous"/>
+
+    <!-- Custom styles for this template -->
+    {% load staticfiles %}
+    <link rel="stylesheet" href="{% static 'css/shop-homepage.css' %}"/>
+
+  </head>
+
+  <body>
+
+    <!-- Navigation -->
+    <nav class="navbar navbar-expand-lg navbar-dark bg-dark fixed-top">
+      <div class="container">
+        <a class="navbar-brand" href="#">Pocket Stock</a>
+        <div class="col-sm-3 col-md-3">
+
+    </div>
+        <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarResponsive" aria-controls="navbarResponsive" aria-expanded="false" aria-label="Toggle navigation">
+          <span class="navbar-toggler-icon"></span>
+        </button>
+
+        <div class="collapse navbar-collapse" id="navbarResponsive">
+
+          <ul class="navbar-nav ml-auto">
+
+            <li class="nav-item">
+              <form class="navbar-form" role="search">
+                <div class="input-group">
+                  <input type="text" class="form-control navbar-search-box" placeholder="Search" name="q">
+                  <input type="submit" class="btn btn-outline-success" value="Search">
+                </div>
+              </form>
+            </li>
+
+            <li class="nav-item">
+              <a class="nav-link" href="#">Buy Stocks
+                <span class="sr-only">(current)</span>
+              </a>
+            </li>
+
+            <li class="nav-item">
+              <a class="nav-link" href="#">Chat</a>
+            </li>
+
+             {% if user.is_authenticated %}
+                <!-- <li class="nav-item ">User: {{ user.get_username }}</li> -->
+                <span class="navbar-text">User: {{ user.get_username }}</span>
+                <li class="nav-item "><a class="nav-link" href="{% url 'logout' %}?next={{ request.path }}">Logout</a></li>
+                {% else %}
+                <li class="nav-item"><a class="nav-link" href="{% url 'login' %}?next={{ request.path }}">Login</a></li>
+            {% endif %}
+            </li>
+
+          </ul>
+
+        </div>
+
+      </div>
+
+    </nav>
+
+    <!-- Page Content -->
+    <div class="container">
+
+      <h1 class="text-center default-head">Welcome {{ user.get_username }}!</h1>
+
+      <h1>{{ transactions }}</h1>
+
+      {% for obj in transactions %}
+        <h1>{{ obj.amountSpent }}</h1>
+        <h1>Stuff</h1>
+      {% endfor %}
+
+      <div class="row card-container">
+        <!-- /.col-lg-3 -->
+        <div class="col-lg-12">
+           <h4>Your Investments:</h4>
+
+          <div class="row stock-content">
+
+            <div class="col-lg-4 col-md-6 mb-4">
+              <div class="card h-100">
+                <a href="#"><div class="number-size-panel"></div></a>
+                <div class="card-body">
+                  <a href="#"><div class="circle"></div></a>
+                </div>
+              </div>
+            </div>
+
+            <div class="col-lg-4 col-md-6 mb-4">
+              <div class="card h-100">
+                <a href="#"><div class="number-size-panel"> <span class="card-text1">20%</span></div></a>
+                <div class="card-body">
+                  <h4 class="card-title">
+                    <a href="#">Apple Inc.</a>
+                  </h4>
+                  <h5>$24.99</h5>
+                  <p class="card-text">Lorem ipsum dolor sit amet, consectetur adipisicing elit. Amet numquam aspernatur!</p>
+                </div>
+                <div class="card-footer">
+                  <small class="text-muted">&#9733; &#9733; &#9733; &#9733; &#9734;</small>
+                </div>
+              </div>
+            </div>
+
+            <div class="col-lg-4 col-md-6 mb-4">
+              <div class="card h-100">
+                <a href="#"><div class="number-size-panel"> <span class="card-text1">20%</span></div></a>
+                <div class="card-body">
+                  <h4 class="card-title">
+                    <a href="#">Apple Inc.</a>
+                  </h4>
+                  <h5>$24.99</h5>
+                  <p class="card-text">Lorem ipsum dolor sit amet, consectetur adipisicing elit. Amet numquam aspernatur!</p>
+                </div>
+                <div class="card-footer">
+                  <small class="text-muted">&#9733; &#9733; &#9733; &#9733; &#9734;</small>
+                </div>
+              </div>
+            </div>
+
+            <div class="col-lg-4 col-md-6 mb-4">
+              <div class="card h-100">
+                <a href="#"><div class="number-size-panel"> <span class="card-text1">20%</span></div></a>
+                <div class="card-body">
+                  <h4 class="card-title">
+                    <a href="#">Apple Inc.</a>
+                  </h4>
+                  <h5>$24.99</h5>
+                  <p class="card-text">Lorem ipsum dolor sit amet, consectetur adipisicing elit. Amet numquam aspernatur!</p>
+                </div>
+                <div class="card-footer">
+                  <small class="text-muted">&#9733; &#9733; &#9733; &#9733; &#9734;</small>
+                </div>
+              </div>
+            </div>
+
+            <div class="col-lg-4 col-md-6 mb-4">
+              <div class="card h-100">
+                <a href="#"><div class="number-size-panel"> <span class="card-text1">20%</span></div></a>
+                <div class="card-body">
+                  <h4 class="card-title">
+                    <a href="#">Apple Inc.</a>
+                  </h4>
+                  <h5>$24.99</h5>
+                  <p class="card-text">Lorem ipsum dolor sit amet, consectetur adipisicing elit. Amet numquam aspernatur!</p>
+                </div>
+                <div class="card-footer">
+                  <small class="text-muted">&#9733; &#9733; &#9733; &#9733; &#9734;</small>
+                </div>
+              </div>
+            </div>
+
+            <div class="col-lg-4 col-md-6 mb-4">
+              <div class="card h-100">
+                <a href="#"><div class="number-size-panel"> <span class="card-text1">20%</span></div></a>
+                <div class="card-body">
+                  <h4 class="card-title">
+                    <a href="#">Apple Inc.</a>
+                  </h4>
+                  <h5>$24.99</h5>
+                  <p class="card-text">Lorem ipsum dolor sit amet, consectetur adipisicing elit. Amet numquam aspernatur!</p>
+                </div>
+                <div class="card-footer">
+                  <small class="text-muted">&#9733; &#9733; &#9733; &#9733; &#9734;</small>
+                </div>
+              </div>
+            </div>
+
+          </div>
+          <!-- /.row -->
+
+        </div>
+        <!-- /.col-lg-9 -->
+
+      </div>
+      <!-- /.row -->
+
+    </div>
+    <!-- /.container -->
+
+    <!-- Footer -->
+     <footer>
+      <div class="container">
+        <ul class="list-inline">
+          <li class="list-inline-item">
+            <a href="#">Home</a>
+          </li>
+          <li class="footer-menu-divider list-inline-item">&sdot;</li>
+          <li class="list-inline-item">
+            <a href="#about">About</a>
+          </li>
+          <li class="footer-menu-divider list-inline-item">&sdot;</li>
+          <li class="list-inline-item">
+            <a href="#services">Services</a>
+          </li>
+          <li class="footer-menu-divider list-inline-item">&sdot;</li>
+          <li class="list-inline-item">
+            <a href="#contact">Contact</a>
+          </li>
+        </ul>
+        <p class="copyright text-muted small">Copyright &copy; Pocket Stock 2017. All Rights Reserved</p>
+      </div>
+    </footer>
+    <!-- Bootstrap core JavaScript -->
+   <script
+  src="https://code.jquery.com/jquery-3.2.1.slim.min.js"
+  integrity="sha256-k2WSCIexGzOj3Euiig+TlR8gA0EmPjuc79OEeY5L45g="
+  crossorigin="anonymous"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/twitter-bootstrap/4.0.0-beta/js/bootstrap.min.js"></script>
+  </body>
+
+</html>

@@ -17,9 +17,23 @@ from social_django.models import UserSocialAuth
 
 from PocketStock import duo_auth
 
+from stocks.models import TransactionModel, StockStatusModel, StockProfileModel
+
 # Create your views here.
 def home(request):
-    return render(request,'base_generic.html');
+    return render(request,'base_generic.html')
+
+
+@login_required
+@duo_auth.duo_auth_required
+def registered_home(request):
+
+    all_entries = TransactionModel.objects.all()
+
+    return render(request, 'dashboard.html', {
+        'transactions': all_entries.values(),
+        })
+
 
 @login_required
 @duo_auth.duo_auth_required

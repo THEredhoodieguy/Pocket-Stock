@@ -37,7 +37,7 @@ INSTALLED_APPS = [
     'django.contrib.sessions',
     'django.contrib.messages',
     'django.contrib.staticfiles',
-    # 'social_django',
+    'stocks'
 ]
 
 MIDDLEWARE = [
@@ -146,7 +146,7 @@ STATICFILES_DIRS = [
 ]
 
 # Redirect to home URL after login (Default redirects to /accounts/profile/)
-LOGIN_REDIRECT_URL = '/'
+LOGIN_REDIRECT_URL = '/home'
 
 LOGIN_URL = 'login'
 LOGOUT_URL = 'logout'
