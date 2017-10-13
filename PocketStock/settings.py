@@ -167,7 +167,7 @@ SOCIAL_AUTH_LOGIN_REDIRECT_URL = '/settings/'
 SOCIAL_AUTH_RAISE_EXCEPTIONS = False
 
 
-EEMAIL_BACKEND = 'django.core.mail.backends.smtp.EmailBackend'
+
 EMAIL_HOST = 'smtp.gmail.com'
 EMAIL_HOST_USER = 'pocketstock2017@gmail.com' # email id
 EMAIL_HOST_PASSWORD = 'MAAR2094' #password

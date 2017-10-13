@@ -1,16 +1,17 @@
 {% extends 'base_generic.html' %}
 
 {% block content %}
-    <h2>Sign up</h2>
-    <br>
     <div class="container">
+
+    <div class="row">
+    <h1>Signup here!</h1>
+
     <form method="post">
         {% csrf_token %}
-        {{ form.as_p }}
+        {{form.as_p}}
         <button type="submit">Sign up</button>
-        <br>
-        <br>
-        <br>
     </form>
+
+  </div>
   </div>
 {% endblock %}
