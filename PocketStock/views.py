@@ -5,6 +5,8 @@ from django.shortcuts import render, HttpResponse, redirect
 
 from django.contrib.auth import login, authenticate
 from django.contrib.auth.forms import UserCreationForm
+from PocketStock.forms import RegistrationForm
+
 
 from django.contrib.auth.decorators import login_required
 from django.contrib.auth.forms import AdminPasswordChangeForm, PasswordChangeForm
@@ -75,7 +77,7 @@ def password(request):
 
 def signup(request):
     if request.method == 'POST':
-        form = UserCreationForm(request.POST)
+        form = RegistrationForm(request.POST)
         if form.is_valid():
             form.save()
             username = form.cleaned_data.get('username')
@@ -84,5 +86,5 @@ def signup(request):
             login(request, user)
             return redirect('/')
     else:
-        form = UserCreationForm()
+        form = RegistrationForm()
     return render(request, 'signup.html', {'form': form})
