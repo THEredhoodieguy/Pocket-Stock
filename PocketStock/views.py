@@ -31,10 +31,46 @@ def home(request):
 @duo_auth.duo_auth_required
 def registered_home(request):
 
-    all_entries = TransactionModel.objects.all()
+    #get all transactions made by the current user
+    all_entries = TransactionModel.objects.filter(user=request.user)
+
+    #we need to pass the user a series of associated objects with the following characteristics
+    #quantity, percent, currentPrice, companyName, valuation
+
+    output_list = []
+
+    companies = []
+
+    #iterate through to get all companies the user has stocks in
+    for i in all_entries:
+        if i.whichStock not in companies:
+            companies.append(i.whichStock)
+
+    company_statuses = {}
+
+    #get the most recent status of the companies that the user has stock in
+    for i in companies:
+        company_statuses[i] = StockStatusModel.objects.filter(whichStock=i).order_by('-id')[0].currentPrice
+
+    # company_fullnames = {}
+
+    # #get the full name of the companies that the user has stock in
+    # for i in companies:
+    #     company_fullnames[i] = StockProfileModel.objects.get(tickerName=i).fullName
+
+    #Associate all related info
+    for i in all_entries:
+        obj = {}
+        obj['qty'] = i.numberPurchased
+        obj['percent'] = i.amountSpent / i.numberPurchased / company_statuses[i.whichStock] * 100
+        obj['currentPrice'] = company_statuses[i.whichStock]
+        # obj['fullName'] = company_fullnames[i.whichStock]
+        obj['name'] = i.whichStock
+        obj['valuation'] = i.numberPurchased * company_statuses[i.whichStock]
+        output_list.append(obj)
 
     return render(request, 'dashboard.html', {
-        'transactions': all_entries.values(),
+        'transactions': output_list,
         })
 
 
