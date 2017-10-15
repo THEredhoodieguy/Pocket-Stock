@@ -64,7 +64,6 @@ def registered_home(request):
         obj['qty'] = i.numberPurchased
         obj['percent'] = i.amountSpent / i.numberPurchased / company_statuses[i.whichStock] * 100
         obj['currentPrice'] = company_statuses[i.whichStock]
-        # obj['fullName'] = company_fullnames[i.whichStock]
         obj['name'] = i.whichStock
         obj['valuation'] = i.numberPurchased * company_statuses[i.whichStock]
         output_list.append(obj)

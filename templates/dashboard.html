@@ -77,12 +77,12 @@
 
       <h1 class="text-center default-head">Welcome {{ user.get_username }}!</h1>
 
-      <h1>{{ transactions }}</h1>
+      <!-- <h1>{{ transactions }}</h1>
 
       {% for obj in transactions %}
-        <h1>{{ obj.valuation }}</h1>
+        <h1>{{ obj.valuation }}</h1> -->
         <!-- <h1>Stuff</h1> -->
-      {% endfor %}
+      <!-- {% endfor %} -->
 
       <div class="row card-container">
         <!-- /.col-lg-3 -->
@@ -111,95 +111,16 @@
                     <h4 class="card-title">
                       <a href="#">{{ obj.name }}</a>
                     </h4>
-                    <h5>${{ obj.valuation }}</h5>
-                    <p class="card-text">Lorem ipsum dolor sit amet, consectetur adipisicing elit. Amet numquam aspernatur!</p>
+                    <h5>Current Asset Value: ${{ obj.valuation }}</h5>
+                    <p class="card-text"></p>
                   </div>
                   <div class="card-footer">
-                    <small class="text-muted">&#9733; &#9733; &#9733; &#9733; &#9734;</small>
+                    <!-- <small class="text-muted">&#9733; &#9733; &#9733; &#9733; &#9734;</small> -->
+                    <small>Quantity Purcahsed: {{ obj.qty }}</small>
                   </div>
                 </div>
               </div>
             {% endfor %}
-
-            <div class="col-lg-4 col-md-6 mb-4">
-              <div class="card h-100">
-                <a href="#"><div class="number-size-panel"> <span class="card-text1">20%</span></div></a>
-                <div class="card-body">
-                  <h4 class="card-title">
-                    <a href="#">Apple Inc.</a>
-                  </h4>
-                  <h5>$24.99</h5>
-                  <p class="card-text">Lorem ipsum dolor sit amet, consectetur adipisicing elit. Amet numquam aspernatur!</p>
-                </div>
-                <div class="card-footer">
-                  <small class="text-muted">&#9733; &#9733; &#9733; &#9733; &#9734;</small>
-                </div>
-              </div>
-            </div>
-
-            <div class="col-lg-4 col-md-6 mb-4">
-              <div class="card h-100">
-                <a href="#"><div class="number-size-panel"> <span class="card-text1">20%</span></div></a>
-                <div class="card-body">
-                  <h4 class="card-title">
-                    <a href="#">Apple Inc.</a>
-                  </h4>
-                  <h5>$24.99</h5>
-                  <p class="card-text">Lorem ipsum dolor sit amet, consectetur adipisicing elit. Amet numquam aspernatur!</p>
-                </div>
-                <div class="card-footer">
-                  <small class="text-muted">&#9733; &#9733; &#9733; &#9733; &#9734;</small>
-                </div>
-              </div>
-            </div>
-
-            <div class="col-lg-4 col-md-6 mb-4">
-              <div class="card h-100">
-                <a href="#"><div class="number-size-panel"> <span class="card-text1">20%</span></div></a>
-                <div class="card-body">
-                  <h4 class="card-title">
-                    <a href="#">Apple Inc.</a>
-                  </h4>
-                  <h5>$24.99</h5>
-                  <p class="card-text">Lorem ipsum dolor sit amet, consectetur adipisicing elit. Amet numquam aspernatur!</p>
-                </div>
-                <div class="card-footer">
-                  <small class="text-muted">&#9733; &#9733; &#9733; &#9733; &#9734;</small>
-                </div>
-              </div>
-            </div>
-
-            <div class="col-lg-4 col-md-6 mb-4">
-              <div class="card h-100">
-                <a href="#"><div class="number-size-panel"> <span class="card-text1">20%</span></div></a>
-                <div class="card-body">
-                  <h4 class="card-title">
-                    <a href="#">Apple Inc.</a>
-                  </h4>
-                  <h5>$24.99</h5>
-                  <p class="card-text">Lorem ipsum dolor sit amet, consectetur adipisicing elit. Amet numquam aspernatur!</p>
-                </div>
-                <div class="card-footer">
-                  <small class="text-muted">&#9733; &#9733; &#9733; &#9733; &#9734;</small>
-                </div>
-              </div>
-            </div>
-
-            <div class="col-lg-4 col-md-6 mb-4">
-              <div class="card h-100">
-                <a href="#"><div class="number-size-panel"> <span class="card-text1">20%</span></div></a>
-                <div class="card-body">
-                  <h4 class="card-title">
-                    <a href="#">Apple Inc.</a>
-                  </h4>
-                  <h5>$24.99</h5>
-                  <p class="card-text">Lorem ipsum dolor sit amet, consectetur adipisicing elit. Amet numquam aspernatur!</p>
-                </div>
-                <div class="card-footer">
-                  <small class="text-muted">&#9733; &#9733; &#9733; &#9733; &#9734;</small>
-                </div>
-              </div>
-            </div>
 
           </div>
           <!-- /.row -->
