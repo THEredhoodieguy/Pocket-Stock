@@ -21,7 +21,10 @@ from stocks.models import TransactionModel, StockStatusModel, StockProfileModel
 
 # Create your views here.
 def home(request):
-    return render(request,'base_generic.html')
+    if request.user.is_authenticated():
+        return registered_home(request)
+    else:
+        return render(request,'base_generic.html')
 
 
 @login_required
