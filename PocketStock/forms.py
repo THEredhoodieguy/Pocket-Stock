@@ -1,6 +1,9 @@
 from django import forms
 from django.contrib.auth.models import User
 from django.contrib.auth.forms import UserCreationForm
+from django.forms import ModelChoiceField, widgets
+
+from stocks.models import TransactionModel, StockStatusModel, StockProfileModel
 
 class RegistrationForm(UserCreationForm):
     email=forms.EmailField(required=True)
@@ -26,3 +29,33 @@ class RegistrationForm(UserCreationForm):
             user.save()
 
         return user
+
+
+class TransactionAddForm(forms.Form):
+    """Form for a user creating a transaction"""
+    #The amount of money that the user spent on the stock
+    amountSpent = forms.DecimalField(max_digits=8, decimal_places=2)
+    #The number of stocks purchased
+    numberPurchased = forms.IntegerField()
+    #The date on which the stocks were purchased
+    datePurchased = forms.DateField(widget=widgets.SelectDateWidget())
+    #The company that the stock purchased was for
+    whichStock = ModelChoiceField(queryset=StockProfileModel.objects.all())
+
+    # class Meta:
+    #     model = TransactionModel
+    #     fields = (
+    #         'amountSpent',
+    #         'numberPurchased',
+    #         'datePurchased',
+    #         'whichStock'
+    #         )
+
+    def save(self, user):
+        transaction = TransactionModel()
+        transaction.user = user
+        transaction.amountSpent = self.amountSpent
+        transaction.numberPurchased = self.numberPurchased
+        transaction.datePurchased = self.datePurchased
+        transaction.whichStock = self.whichStock
+        transaction.save()

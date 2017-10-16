@@ -5,7 +5,7 @@ from django.shortcuts import render, HttpResponse, redirect
 
 from django.contrib.auth import login, authenticate
 from django.contrib.auth.forms import UserCreationForm
-from PocketStock.forms import RegistrationForm
+from PocketStock.forms import RegistrationForm, TransactionAddForm
 
 
 from django.contrib.auth.decorators import login_required
@@ -50,7 +50,7 @@ def registered_home(request):
 
     #get the most recent status of the companies that the user has stock in
     for i in companies:
-        company_statuses[i] = StockStatusModel.objects.filter(whichStock=i).order_by('-id')[0].currentPrice
+        company_statuses[i] = StockStatusModel.objects.filter(whichStock=i).order_by('date')[0].currentPrice
 
     # company_fullnames = {}
 
@@ -127,3 +127,20 @@ def signup(request):
         form = RegistrationForm()
 
     return render(request, 'signup.html', {'form': form})
+
+
+@login_required
+@duo_auth.duo_auth_required
+def create_transaction(request):
+    if request.method == 'POST':
+        form = TransactionAddForm(request.POST)
+        if form.is_valid():
+            #process data
+
+            form.save(request.user)
+
+            return redirect('/dashboard')
+    else:
+        form = TransactionAddForm()
+
+    return render(request, 'create_transaction.html', {'form': form})
