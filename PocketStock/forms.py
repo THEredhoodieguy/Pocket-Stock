@@ -42,20 +42,21 @@ class TransactionAddForm(forms.Form):
     #The company that the stock purchased was for
     whichStock = ModelChoiceField(queryset=StockProfileModel.objects.all())
 
-    # class Meta:
-    #     model = TransactionModel
-    #     fields = (
-    #         'amountSpent',
-    #         'numberPurchased',
-    #         'datePurchased',
-    #         'whichStock'
-    #         )
+    class Meta:
+        model = TransactionModel
+        fields = (
+            'amountSpent',
+            'numberPurchased',
+            'datePurchased',
+            'whichStock'
+            )
 
     def save(self, user):
+
         transaction = TransactionModel()
         transaction.user = user
-        transaction.amountSpent = self.amountSpent
-        transaction.numberPurchased = self.numberPurchased
-        transaction.datePurchased = self.datePurchased
-        transaction.whichStock = self.whichStock
+        transaction.amountSpent = self.cleaned_data['amountSpent']
+        transaction.numberPurchased = self.cleaned_data['numberPurchased']
+        transaction.datePurchased = self.cleaned_data['datePurchased']
+        transaction.whichStock = self.cleaned_data['whichStock']
         transaction.save()
