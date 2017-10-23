@@ -13,6 +13,7 @@
     <p>Log in here.</p>
     {% endif %}
 {% endif %}
+<div class="container" style="margin-top:100px;">
 <div class="row">
     <div class="col-8">
         <form method="post" action="{% url 'login' %}">
@@ -41,7 +42,7 @@
     <div class="col-4">
         <a href="{% url 'signup' %}"><button class="btn">Create a new account?</button></a>
     </div>
-
+</div>
     {# Assumes you setup the password_reset view in your URLconf #}
     <p><a href="{% url 'password_reset' %}">Lost password?</a></p>
 </div>
