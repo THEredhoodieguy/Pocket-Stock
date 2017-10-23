@@ -28,63 +28,41 @@
 </head>
 
 <body>
-    {% block header %}
-    <nav class="navbar navbar-expand-lg navbar-dark bg-dark">
-        <a class="navbar-brand" href="/">Pocket[Stock]</a>
-        <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarSupportedContent" aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
-            <span class="navbar-toggler-icon"></span>
+    {%block header%}
+    <!-- Navigation -->
+    <nav class="navbar navbar-expand-lg navbar-light bg-light fixed-top">
+      <div class="container">
+        <a class="navbar-brand" href="/Accounts/">Pocket Stock</a>
+        <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarResponsive" aria-controls="navbarResponsive" aria-expanded="false" aria-label="Toggle navigation">
+          <span class="navbar-toggler-icon"></span>
         </button>
-    <div class="collapse navbar-collapse" id="navbarResponsive">
+        <div class="collapse navbar-collapse" id="navbarResponsive">
           <ul class="navbar-nav ml-auto">
-            {% if user.is_authenticated %}
-                <!-- <li class="nav-item ">User: {{ user.get_username }}</li> -->
-                <span class="navbar-text">User: {{ user.get_username }}</span>
-                <li class="nav-item "><a class="nav-link" href="{% url 'logout' %}?next={{ request.path }}">Logout</a></li>
-                {% else %}
-                <li class="nav-item"><a class="nav-link" href="{% url 'login' %}?next={{ request.path }}">Login</a></li>
-            {% endif %}
-
             <li class="nav-item">
-                <a class="nav-link" href="/accounts/signup/">SignUp</a></li>
+              <a class="nav-link" href="/login/">Login</a>
+            </li>
+            <li class="nav-item">
+              <a class="nav-link" href="/accounts/signup">SignUp</a>
+            </li>
           </ul>
-    </div>
+        </div>
+      </div>
     </nav>
+  {%endblock%}
 
+    {% block content%}
+    <!-- Header -->
+    <header class="intro-header">
+      <div class="container">
+        <div class="intro-message">
+          <h1>Pocket Stock</h1>
+          <hr class="intro-divider">
+          <h3>One Stop Service To All Stock Solutions</h3>
+        </div>
+      </div>
+    </header>
     {% endblock %}
-
-    <!-- Stock header bar, displays current popular stock valuations -->
-    <div class="container bg-light">
-      <div class="row">
-        <div class="col-12"> <!-- style="margin-top: 10px" -->
-          <p>AAPL: 800, MSFT: 750, GOOG: 600, </p>
-        </div>
-      </div>
-    </div>
-    <!-- Content bar, displays main page content -->
-    <div class="container">
-      <div class="row">
-        <div class="col-md-2"></div>
-        <div class="col-md-8">
-          {% block content%}
-
-            <h1>Hello world!</h1>
-            <p>Lorem ipsum dolor sit amet, consectetur adipiscing elit. Maecenas quis congue diam. Phasellus malesuada eget velit ut rhoncus. Nunc congue diam id sem tincidunt mattis. Sed eget laoreet dolor. Aliquam suscipit porttitor lacus eget volutpat. Maecenas at felis nibh. Nunc et gravida justo. Duis quis sapien ligula. Proin consequat dictum mi, eget interdum risus tincidunt non.
-
-  Vestibulum auctor tellus non justo consequat, at mattis urna ullamcorper. Nullam quis consequat tellus, at scelerisque felis. Donec accumsan elit ipsum, id ultrices ligula convallis at. Mauris sed ante eros. Phasellus facilisis sem ex, quis pharetra libero dapibus a. Nullam tellus tortor, dictum sed libero eget, mollis finibus nibh. Proin at lacus porta, hendrerit erat non, dapibus metus. Pellentesque fermentum elit vitae eros scelerisque, nec cursus turpis mattis. Ut ut lacus elit. Proin eget ante sem.
-
-  Aliquam ac tincidunt nisi. Interdum et malesuada fames ac ante ipsum primis in faucibus. Ut eu facilisis nulla, et finibus arcu. In hac habitasse platea dictumst. Pellentesque in risus sed ipsum condimentum hendrerit non et ante. Nullam eget tellus aliquet, aliquet ex eu, tincidunt ligula. Curabitur posuere facilisis lorem placerat semper. Sed commodo odio et sollicitudin venenatis. Nunc ac tortor a tellus maximus molestie id non libero. Suspendisse potenti.
-
-  Cras ut venenatis diam. Aenean in magna massa. Phasellus aliquam ornare mi, sit amet auctor eros faucibus sit amet. Nullam sapien metus, placerat auctor imperdiet sit amet, lobortis sit amet purus. Sed sed diam cursus, volutpat nulla vitae, rhoncus felis. Nulla facilisi. Donec sem mauris, dignissim commodo interdum et, blandit sed magna.
-
-  Curabitur venenatis dui at congue ultricies. Mauris eget neque tortor. Ut semper imperdiet magna, nec vulputate massa consectetur at. Curabitur eu ullamcorper sem, vel luctus tortor. Integer eu est a nulla suscipit aliquam ac dignissim urna. Nunc nec leo sed nunc mattis elementum et et est. Praesent vel neque mauris. Quisque non tortor eget risus fermentum placerat id id nulla. Vestibulum nec dapibus magna, id lobortis est. Ut eget tortor in ipsum congue varius. Vivamus vitae dui consectetur nisi dapibus ullamcorper id eu ipsum. Vivamus dignissim turpis vel ullamcorper tempor.</p>
-        {% endblock %}
-        </div>
-        <div class="col-md-2"></div>
-      </div>
-    </div>
-    <br>
-
-
+    <!-- Page Content -->
     <!-- Footer -->
     {% block footer %}
         <footer>
@@ -110,11 +88,6 @@
       </div>
     </footer>
     {% endblock %}
-    <!-- Bootstrap core JavaScript -->
-    <!-- We don't have these files stored locally, need to download them for the server or find a CDN for them -->
-    <!-- <script src="vendor/jquery/jquery.min.js"></script>
-    <script src="vendor/popper/popper.min.js"></script>
-    <script src="vendor/bootstrap/js/bootstrap.min.js"></script> -->
   </body>
 
 </html>
