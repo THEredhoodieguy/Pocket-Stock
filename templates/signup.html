@@ -1,11 +1,13 @@
 {% extends 'base_generic.html' %}
 
 {% block content %}
-    <div class="container">
 
-    <div class="row">
-    <h1>Signup here!</h1>
+<h1 class="text-center" style="margin-top:100px;">Signup here!</h1>
 
+<div class="container">
+
+    <div class="row" style="margin-top:25px;">
+    <br/>
     <form method="post">
         {% csrf_token %}
         {{form.as_p}}
