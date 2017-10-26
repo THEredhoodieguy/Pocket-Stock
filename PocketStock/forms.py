@@ -2,6 +2,7 @@ from django import forms
 from django.contrib.auth.models import User
 from django.contrib.auth.forms import UserCreationForm
 from django.forms import ModelChoiceField, widgets
+from django.forms.extras.widgets import SelectDateWidget
 
 from stocks.models import TransactionModel, StockStatusModel, StockProfileModel
 
