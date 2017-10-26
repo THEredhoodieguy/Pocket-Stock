@@ -25,7 +25,7 @@ SECRET_KEY = 'fz4r#k#skpa#9p+rs8p-v=87_9*ga&qnveh$2u@q+u00o9&6oc'
 # SECURITY WARNING: don't run with debug turned on in production!
 DEBUG = True
 
-ALLOWED_HOSTS = []
+ALLOWED_HOSTS = ['silo.soic.indiana.edu']
 
 
 # Application definition
