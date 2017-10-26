@@ -39,7 +39,7 @@ class TransactionAddForm(forms.Form):
     #The number of stocks purchased
     numberPurchased = forms.IntegerField()
     #The date on which the stocks were purchased
-    datePurchased = forms.DateField(widget=widgets.SelectDateWidget())
+    datePurchased = forms.DateField(widget=SelectDateWidget())
     #The company that the stock purchased was for
     whichStock = ModelChoiceField(queryset=StockProfileModel.objects.all())
 
