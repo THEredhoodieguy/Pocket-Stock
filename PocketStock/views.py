@@ -150,6 +150,9 @@ def create_transaction(request):
 @duo_auth.duo_auth_required
 def searchResults(request):
     if request.method == 'GET':
+        print 'hi'
+        query = request.GET.get('query')
+        #print request.GET['query']
         return render(request, 'searchresults.html')
 
 def insertData(request):
