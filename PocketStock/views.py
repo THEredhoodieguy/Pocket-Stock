@@ -7,6 +7,7 @@ from django.contrib.auth import login, authenticate
 from django.contrib.auth.forms import UserCreationForm
 from PocketStock.forms import RegistrationForm, TransactionAddForm
 
+from django.db.models import Q
 
 from django.contrib.auth.decorators import login_required
 from django.contrib.auth.forms import AdminPasswordChangeForm, PasswordChangeForm
@@ -152,8 +153,14 @@ def searchResults(request):
     if request.method == 'GET':
         print 'hi'
         query = request.GET.get('query')
-        #print request.GET['query']
-        return render(request, 'searchresults.html')
+        results = StockProfileModel.objects.filter(Q(tickerName__icontains=query)|Q(fullName__icontains=query))
+        #result1 = StockProfileModel.objects.filter()
+        print results
+        resultsToSend = {}
+        for i in range(0, len(results)):
+            resultsToSend[i] = results[i].fullName
+        print resultsToSend
+        return render(request, 'searchresults.html', {'searchres': resultsToSend})
 
 def insertData(request):
     k={
