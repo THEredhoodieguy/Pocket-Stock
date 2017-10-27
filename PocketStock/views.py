@@ -139,14 +139,18 @@ def create_transaction(request):
         form = TransactionAddForm(request.POST)
         if form.is_valid():
             #process data
-
             form.save(request.user)
-
             return redirect('/dashboard')
     else:
         form = TransactionAddForm()
 
     return render(request, 'create_transaction.html', {'form': form})
+
+@login_required
+@duo_auth.duo_auth_required
+def searchResults(request):
+    if request.method == 'GET':
+        return render(request, 'searchresults.html')
 
 def insertData(request):
     k={

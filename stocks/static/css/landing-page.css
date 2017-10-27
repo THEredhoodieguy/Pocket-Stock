@@ -134,9 +134,9 @@ body, h1, h2, h3, h4, h5, h6 {
 footer {
   padding: 25px 0;
   background-color: #f8f8f8;
-  position: absolute;
-  bottom:0;
-  width: 100%;
+  width: 100% !important;
+  position: absolute !important;
+  bottom:0 !important;
 }
 
 p.copyright {
