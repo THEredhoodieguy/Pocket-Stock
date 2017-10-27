@@ -1,0 +1,16 @@
+{% extends 'dashboard.html' %}
+
+{% block content %}
+<div class="container" style="margin-top:50px;">
+    <div class="row">
+        <h1>Search Results</h1>
+        <ul class="list-group">
+            {% for k,v in searchres.iteritems %}
+            <li class="list-group-item"> <a href="#">{{ v }} </a></li>
+            {% endfor %}
+
+        </ul>
+    </div>
+</div>
+{% endblock %}
+

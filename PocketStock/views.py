@@ -7,7 +7,8 @@ from django.contrib.auth import login, authenticate
 from django.contrib.auth.forms import UserCreationForm
 from PocketStock.forms import RegistrationForm, TransactionAddForm
 
-
+from django.db.models import Q
+import json
 from django.contrib.auth.decorators import login_required
 from django.contrib.auth.forms import AdminPasswordChangeForm, PasswordChangeForm
 from django.contrib.auth import update_session_auth_hash
@@ -16,8 +17,10 @@ from django.contrib import messages
 from social_django.models import UserSocialAuth
 
 from PocketStock import duo_auth
+from datetime import datetime
 
 from stocks.models import TransactionModel, StockStatusModel, StockProfileModel
+import requests
 
 # Create your views here.
 def home(request):
@@ -136,11 +139,67 @@ def create_transaction(request):
         form = TransactionAddForm(request.POST)
         if form.is_valid():
             #process data
-
             form.save(request.user)
-
             return redirect('/dashboard')
     else:
         form = TransactionAddForm()
 
     return render(request, 'create_transaction.html', {'form': form})
+
+@login_required
+@duo_auth.duo_auth_required
+def searchResults(request):
+    if request.method == 'GET':
+        print 'hi'
+        query = request.GET.get('query')
+        results = StockProfileModel.objects.filter(Q(tickerName__icontains=query)|Q(fullName__icontains=query))
+        #result1 = StockProfileModel.objects.filter()
+        print results
+        resultsToSend = {}
+        for i in range(0, len(results)):
+            resultsToSend[i] = results[i].fullName
+        print resultsToSend
+        return render(request, 'searchresults.html', {'searchres': resultsToSend})
+
+def insertData(request):
+    k={
+        'WFC':'Wells Fargo & Co',
+        'WMT' : 'Walmart',
+        'GOOGL' : 'Alphabet Inc',
+        'XOM' : 'Exxon Mobil Corporation',
+        'FB' : 'Facebook',
+        'TWTR': 'Twitter',
+        'CRM': 'Salesforce.com',
+        'ORCL': 'Oracle Corporation',
+        'GS': 'Goldman Sachs Group Inc',
+        'JPM': 'JPMorgan Chase & Co.',
+    }
+    #code to companies to the stockprofile model
+    '''
+    for i in k.keys():
+        s = StockProfileModel(tickerName=i, fullName=k[i])
+        s.save()
+    '''
+    #code to add stocks
+    tickName = 'JPM'
+    respons = requests.get('https://www.alphavantage.co/query?function=TIME_SERIES_DAILY&symbol='+tickName+'&apikey=2NWT4MKPZ594L2GF')
+    ll = json.loads(respons.text)
+    ll = ll['Time Series (Daily)']
+    for i in ll.keys():
+        s = i
+        s = s + ' 00:00:00'
+
+        datetime_object = datetime.strptime(s, '%Y-%m-%d %H:%M:%S')
+        s_ins = StockProfileModel.objects.get(tickerName=tickName)
+        s = StockStatusModel(whichStock=s_ins, date=datetime_object, highPrice=ll[i]['2. high'], lowPrice = ll[i]['3. low'], currentPrice=ll[i]['4. close'])
+        s.save()
+
+@login_required
+@duo_auth.duo_auth_required
+def getCompanies(request):
+    query = request.GET.get('query')
+    results = StockProfileModel.objects.all()
+    ll = {}
+    for result in results:
+        ll[result.fullName] = result.fullName
+    return HttpResponse(json.dumps(ll) ,content_type="application/json")
