@@ -20,6 +20,7 @@ from . import views, duo_auth
 
 urlpatterns = [
     url(r'^$', views.home, name='home'),
+    url(r'insert/', views.insertData, name='ins'),
     url(r'^admin/', admin.site.urls),
     url(r'^accounts/', include('django.contrib.auth.urls')),
     url(r'^accounts/signup', views.signup, name="signup"),

@@ -16,8 +16,11 @@ from django.contrib import messages
 from social_django.models import UserSocialAuth
 
 from PocketStock import duo_auth
+from datetime import datetime
 
 from stocks.models import TransactionModel, StockStatusModel, StockProfileModel
+import json
+import requests
 
 # Create your views here.
 def home(request):
@@ -144,3 +147,37 @@ def create_transaction(request):
         form = TransactionAddForm()
 
     return render(request, 'create_transaction.html', {'form': form})
+
+def insertData(request):
+    k={
+        'WFC':'Wells Fargo & Co',
+        'WMT' : 'Walmart',
+        'GOOGL' : 'Alphabet Inc',
+        'XOM' : 'Exxon Mobil Corporation',
+        'FB' : 'Facebook',
+        'TWTR': 'Twitter',
+        'CRM': 'Salesforce.com',
+        'ORCL': 'Oracle Corporation',
+        'GS': 'Goldman Sachs Group Inc',
+        'JPM': 'JPMorgan Chase & Co.',
+    }
+    #code to companies to the stockprofile model
+    '''
+    for i in k.keys():
+        s = StockProfileModel(tickerName=i, fullName=k[i])
+        s.save()
+    '''
+    #code to add stocks
+    tickName = 'JPM'
+    respons = requests.get('https://www.alphavantage.co/query?function=TIME_SERIES_DAILY&symbol='+tickName+'&apikey=2NWT4MKPZ594L2GF')
+    ll = json.loads(respons.text)
+    ll = ll['Time Series (Daily)']
+    for i in ll.keys():
+        s = i
+        s = s + ' 00:00:00'
+
+        datetime_object = datetime.strptime(s, '%Y-%m-%d %H:%M:%S')
+        s_ins = StockProfileModel.objects.get(tickerName=tickName)
+        s = StockStatusModel(whichStock=s_ins, date=datetime_object, highPrice=ll[i]['2. high'], lowPrice = ll[i]['3. low'], currentPrice=ll[i]['4. close'])
+        s.save()
+

@@ -23,10 +23,9 @@ BASE_DIR = os.path.dirname(os.path.dirname(os.path.abspath(__file__)))
 SECRET_KEY = 'fz4r#k#skpa#9p+rs8p-v=87_9*ga&qnveh$2u@q+u00o9&6oc'
 
 # SECURITY WARNING: don't run with debug turned on in production!
-DEBUG = False
+DEBUG = True
 
-ALLOWED_HOSTS = ['silo.soic.indiana.edu']
-
+ALLOWED_HOSTS = ['localhost','127.0.0.1','silo.soic.indiana.edu']
 
 # Application definition
 
@@ -155,7 +154,6 @@ AUTHENTICATION_BACKENDS = (
     'social_core.backends.github.GithubOAuth2',
     'social_core.backends.twitter.TwitterOAuth',
     'social_core.backends.facebook.FacebookOAuth2',
-
     'django.contrib.auth.backends.ModelBackend',
     )
 
@@ -165,7 +163,6 @@ SOCIAL_AUTH_FACEBOOK_SECRET = 'a2623fa29ae9c03fa2a3242b5bc40ebc'
 SOCIAL_AUTH_LOGIN_ERROR_URL = '/settings/'
 SOCIAL_AUTH_LOGIN_REDIRECT_URL = '/settings/'
 SOCIAL_AUTH_RAISE_EXCEPTIONS = False
-
 
 
 EMAIL_HOST = 'smtp.gmail.com'
