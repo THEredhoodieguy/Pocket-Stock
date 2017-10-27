@@ -81,5 +81,21 @@ footer {
   width: 100% !important;
   position: absolute !important;
   bottom:0 !important;
+}
 
+.list-group{
+  width:100%;
+}
+.list-group li{
+  width:100%;
+  border-bottom: 1px;
+  border-right:0;
+  border-left:0;
+}
+
+.list-group-item:first-child {
+  border-top: 0;
+}
+.list-group-item:last-child {
+  border-bottom: 0;
 }
