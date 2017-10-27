@@ -8,7 +8,7 @@ from django.contrib.auth.forms import UserCreationForm
 from PocketStock.forms import RegistrationForm, TransactionAddForm
 
 from django.db.models import Q
-
+import json
 from django.contrib.auth.decorators import login_required
 from django.contrib.auth.forms import AdminPasswordChangeForm, PasswordChangeForm
 from django.contrib.auth import update_session_auth_hash
@@ -20,7 +20,6 @@ from PocketStock import duo_auth
 from datetime import datetime
 
 from stocks.models import TransactionModel, StockStatusModel, StockProfileModel
-import json
 import requests
 
 # Create your views here.
@@ -195,3 +194,12 @@ def insertData(request):
         s = StockStatusModel(whichStock=s_ins, date=datetime_object, highPrice=ll[i]['2. high'], lowPrice = ll[i]['3. low'], currentPrice=ll[i]['4. close'])
         s.save()
 
+@login_required
+@duo_auth.duo_auth_required
+def getCompanies(request):
+    query = request.GET.get('query')
+    results = StockProfileModel.objects.all()
+    ll = {}
+    for result in results:
+        ll[result.fullName] = result.fullName
+    return HttpResponse(json.dumps(ll) ,content_type="application/json")

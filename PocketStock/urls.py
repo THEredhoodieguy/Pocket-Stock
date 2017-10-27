@@ -21,6 +21,7 @@ from . import views, duo_auth
 urlpatterns = [
     url(r'^$', views.home, name='home'),
     url(r'insert/', views.insertData, name='ins'),
+    url(r'getCompanies/', views.getCompanies, name='getCompanies'),
     url(r'searchResults/', views.searchResults, name='searchresults'),
     url(r'^admin/', admin.site.urls),
     url(r'^accounts/', include('django.contrib.auth.urls')),
