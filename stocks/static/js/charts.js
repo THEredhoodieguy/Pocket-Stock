@@ -1,36 +1,53 @@
+
+function displayGraph(data){
 var ctx = document.getElementById("myChart").getContext('2d');
+var lowData = [];
+var labels = [];
+var closeData = [];
+var highData = [];
+//console.log(data);
+for(var key in data){
+    labels.push(key);
+    highData.push(data[key]["highPrice"]);
+    lowData.push(data[key]["lowPrice"]);
+    closeData.push(data[key]["closePrice"]);
+}
+
 var myChart = new Chart(ctx, {
     type: 'line',
     data: {
-        labels: ["Red", "Blue", "Yellow", "Green", "Purple", "Orange"],
+        labels: labels,
         datasets: [{
-            label: 'Open',
-            data: [12, 19, 3, 5, 2, 3],
-            backgroundColor: 'rgba(255, 99, 132, 0.2)',
-            borderColor: 'rgba(255,99,132,1)',
-            borderWidth: 1
+            label: 'High',
+            data: highData,
+            borderColor: 'rgba(255,99,132,0.7)',
+            borderWidth: 1,
+            fill: false,
         },
         {
-            label: 'Close',
-            data: [12, 19, 3, 5, 2, 3],
-            backgroundColor: 'rgba(255, 99, 132, 0.2)',
-            borderColor: 'rgba(255,99,132,1)',
-            borderWidth: 1
+            label: 'Low',
+            data: lowData,
+            borderColor: 'rgba(0,255,0,0.7)',
+            borderWidth: 1,
+            fill: false
         },{
-            label: 'High',
-            data: [12, 19, 3, 5, 2, 3],
-            backgroundColor: 'rgba(255, 99, 132, 0.2)',
-            borderColor: 'rgba(255,99,132,1)',
-            borderWidth: 1
+            label: 'Close',
+            data: closeData,
+            borderColor: 'rgba(0,0,255,0.7)',
+            borderWidth: 1,
+            fill: false
         }]
     },
     options: {
         scales: {
             yAxes: [{
                 ticks: {
-                    beginAtZero:true
+                    autoSkip:true,
+                    stepSize:10,
+                    maxTickLimit: 20
                 }
             }]
         }
     }
 });
+}

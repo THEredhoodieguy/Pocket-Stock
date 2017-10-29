@@ -21,6 +21,7 @@ from datetime import datetime
 
 from stocks.models import TransactionModel, StockStatusModel, StockProfileModel
 import requests
+from collections import OrderedDict
 
 # Create your views here.
 def home(request):
@@ -180,7 +181,7 @@ def insertData(request):
         s.save()
     '''
     #code to add stocks
-    tickName = 'JPM'
+    tickName = 'MSFT'
     respons = requests.get('https://www.alphavantage.co/query?function=TIME_SERIES_DAILY&symbol='+tickName+'&apikey=2NWT4MKPZ594L2GF')
     ll = json.loads(respons.text)
     ll = ll['Time Series (Daily)']
@@ -208,4 +209,14 @@ def getCompanies(request):
 def stockProfile(request):
     tickerName = request.GET.get('stockname')
     s_ins = StockProfileModel.objects.get(tickerName=tickerName)
-    return render(request, 'StockProfile.html',{'stockName': s_ins.fullName,'tickerName':s_ins.tickerName,})
+    dataForStock = StockStatusModel.objects.filter(whichStock = s_ins).order_by('date')
+    print dataForStock
+    finalData = OrderedDict()
+    for data in dataForStock:
+        tempMap = {'highPrice': str(data.highPrice), 'lowPrice': str(data.lowPrice), 'closePrice': str(data.currentPrice)}
+        finalData[data.date.strftime('%Y/%m/%d')] = tempMap
+    print 'hihi'
+    print finalData
+    finalData = json.dumps(finalData)
+    #print finalData
+    return render(request, 'StockProfile.html',{'stockName': s_ins.fullName,'tickerName':s_ins.tickerName, 'finalData': finalData})
