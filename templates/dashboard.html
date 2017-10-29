@@ -23,9 +23,9 @@
   <body>
 
     <!-- Navigation -->
-    <nav class="navbar navbar-expand-lg navbar-dark bg-dark fixed-top">
+    <nav class="navbar navbar-expand-lg navbar-light bg-light fixed-top">
       <div class="container">
-        <a class="navbar-brand" href="#">Pocket Stock</a>
+        <strong><a class="navbar-brand" href="/">Pocket Stock</a></strong>
         <div class="col-sm-3 col-md-3">
 
     </div>
@@ -47,7 +47,7 @@
             </li>
 
             <li class="nav-item">
-              <a class="nav-link" href="#">Buy Stocks
+              <a class="nav-link" href="/create_transaction">Buy Stocks
                 <span class="sr-only">(current)</span>
               </a>
             </li>
@@ -139,33 +139,36 @@
     <!-- /.container -->
 {%endblock%}
     <!-- Footer -->
-     <footer>
-      <div class="container">
-        <ul class="list-inline">
-          <li class="list-inline-item">
-            <a href="/">Home</a>
-          </li>
-          <li class="footer-menu-divider list-inline-item">&sdot;</li>
-          <li class="list-inline-item">
-            <a href="#about">About</a>
-          </li>
-          <li class="footer-menu-divider list-inline-item">&sdot;</li>
-          <li class="list-inline-item">
-            <a href="#services">Services</a>
-          </li>
-          <li class="footer-menu-divider list-inline-item">&sdot;</li>
-          <li class="list-inline-item">
-            <a href="#contact">Contact</a>
-          </li>
-        </ul>
-        <p class="copyright text-muted small">Copyright &copy; Pocket Stock 2017. All Rights Reserved</p>
-      </div>
-    </footer>
+{% block footer %}
+<footer>
+  <div class="container">
+    <ul class="list-inline">
+      <li class="list-inline-item">
+        <a href="/">Home</a>
+      </li>
+      <li class="footer-menu-divider list-inline-item">&sdot;</li>
+      <li class="list-inline-item">
+        <a href="#about">About</a>
+      </li>
+      <li class="footer-menu-divider list-inline-item">&sdot;</li>
+      <li class="list-inline-item">
+        <a href="#services">Services</a>
+      </li>
+      <li class="footer-menu-divider list-inline-item">&sdot;</li>
+      <li class="list-inline-item">
+        <a href="#contact">Contact</a>
+      </li>
+    </ul>
+    <p class="copyright text-muted small">Copyright &copy; Pocket Stock 2017. All Rights Reserved</p>
+  </div>
+</footer>
+{% endblock %}
+
     <!-- Bootstrap core JavaScript -->
 
     {% load staticfiles %}
     <script src="https://code.jquery.com/jquery-1.12.4.js"></script>
-  <script src="https://code.jquery.com/ui/1.12.1/jquery-ui.js"></script>
+    <script src="https://code.jquery.com/ui/1.12.1/jquery-ui.js"></script>
     <script src="{% static 'js/search.js' %}"></script>
     <script src="https://cdnjs.cloudflare.com/ajax/libs/twitter-bootstrap/4.0.0-beta/js/bootstrap.min.js"></script>
 

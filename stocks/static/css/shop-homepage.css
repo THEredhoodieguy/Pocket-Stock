@@ -28,7 +28,7 @@ top: 20%;
 left: 50%;
 transform: translate(-50%, -50%);
 font-weight: bold;
-font-size: 7em;
+font-size: 4em;
 }
 
 .number-size-panel{
@@ -38,11 +38,11 @@ height: 200px;
 
 .circle {
   border-radius: 50%;
-  width: 200px;
-  height: 200px;
+  width: 150px;
+  height: 150px;
   background-color: rgb(52, 58, 64);
   position: relative;
-  top: 20%;
+  top: 50%;
   left: 50%;
   transform: translate(-50%, -50%);
 }
@@ -76,11 +76,10 @@ margin-top: 40px;
 }
 
 footer {
-  padding: 25px 0;
+  padding: 10px 0;
   background-color: #f8f8f8;
   width: 100% !important;
-  position: absolute !important;
-  bottom:0 !important;
+  height: 10%;
 }
 
 .list-group{
