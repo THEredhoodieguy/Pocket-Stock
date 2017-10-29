@@ -9,7 +9,11 @@ from stocks.models import TransactionModel, StockStatusModel, StockProfileModel
 class RegistrationForm(UserCreationForm):
     email=forms.EmailField(required=True)
 
+    def __init__(self, *args, **kwargs):
+        super(UserCreationForm, self).__init__(*args, **kwargs)
 
+        for fieldname in ['username','email','first_name','last_name', 'password1', 'password2']:
+            self.fields[fieldname].help_text = None
 
     class Meta:
         model = User
@@ -44,6 +48,7 @@ class TransactionAddForm(forms.Form):
     datePurchased = forms.DateField(widget=SelectDateWidget(years=range(2007, 2020)))
     #The company that the stock purchased was for
     whichStock = ModelChoiceField(queryset=StockProfileModel.objects.all())
+
 
     class Meta:
         model = TransactionModel
