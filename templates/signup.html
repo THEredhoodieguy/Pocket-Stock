@@ -7,17 +7,15 @@
 <div class="container">
 
     <div class="row">
-    <div style="margin-top:25px;"
-    <br/>
-    <form method="post">
-        {% csrf_token %}
-        {{form.as_p}}
-      <br>
-       <div style="text-align:center">
-        <input type="submit" class="btn btn-default btn-md" value="Sign Up" />
-      </div>
-    </form>
- </div>
+
+        <div style="margin:35px auto;">
+            <form method="post">
+                {% csrf_token %}
+                {{form.as_p}}
+              <br>
+                <input type="submit" class="btn btn-default btn-md" value="Sign Up" />
+            </form>
+        </div>
   </div>
   </div>
 {% endblock %}
