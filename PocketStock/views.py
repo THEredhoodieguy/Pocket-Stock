@@ -153,12 +153,11 @@ def searchResults(request):
         print 'hi'
         query = request.GET.get('query')
         results = StockProfileModel.objects.filter(Q(tickerName__icontains=query)|Q(fullName__icontains=query))
-        #result1 = StockProfileModel.objects.filter()
         print results
         resultsToSend = {}
         for i in range(0, len(results)):
-            resultsToSend[i] = results[i].fullName
-        print resultsToSend
+            link = '/stockProfile?stockname='+ results[i].tickerName
+            resultsToSend[results[i].fullName] = link
         return render(request, 'searchresults.html', {'searchres': resultsToSend})
 
 def insertData(request):
@@ -203,3 +202,10 @@ def getCompanies(request):
     for result in results:
         ll[result.fullName] = result.fullName
     return HttpResponse(json.dumps(ll) ,content_type="application/json")
+
+@login_required
+@duo_auth.duo_auth_required
+def stockProfile(request):
+    tickerName = request.GET.get('stockname')
+    s_ins = StockProfileModel.objects.get(tickerName=tickerName)
+    return render(request, 'StockProfile.html',{'stockName': s_ins.fullName,'tickerName':s_ins.tickerName,})
