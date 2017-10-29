@@ -9,6 +9,8 @@ from stocks.models import TransactionModel, StockStatusModel, StockProfileModel
 class RegistrationForm(UserCreationForm):
     email=forms.EmailField(required=True)
 
+
+
     class Meta:
         model = User
         fields =(
@@ -39,7 +41,7 @@ class TransactionAddForm(forms.Form):
     #The number of stocks purchased
     numberPurchased = forms.IntegerField()
     #The date on which the stocks were purchased
-    datePurchased = forms.DateField(widget=SelectDateWidget())
+    datePurchased = forms.DateField(widget=SelectDateWidget(years=range(2007, 2020)))
     #The company that the stock purchased was for
     whichStock = ModelChoiceField(queryset=StockProfileModel.objects.all())
 
