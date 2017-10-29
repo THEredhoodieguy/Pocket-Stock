@@ -2,8 +2,12 @@
 <project version="4">
   <component name="ChangeListManager">
     <list default="true" id="a68e419d-e205-4ca3-b0c4-64dee9f680a0" name="Default" comment="">
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/PocketStock/forms.py" afterPath="$PROJECT_DIR$/PocketStock/forms.py" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/templates/signup.html" afterPath="$PROJECT_DIR$/templates/signup.html" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/db.sqlite3" afterPath="$PROJECT_DIR$/db.sqlite3" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/.idea/workspace.xml" afterPath="$PROJECT_DIR$/.idea/workspace.xml" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/PocketStock/urls.py" afterPath="$PROJECT_DIR$/PocketStock/urls.py" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/PocketStock/views.py" afterPath="$PROJECT_DIR$/PocketStock/views.py" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/templates/dashboard.html" afterPath="$PROJECT_DIR$/templates/dashboard.html" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/templates/searchresults.html" afterPath="$PROJECT_DIR$/templates/searchresults.html" />
     </list>
     <option name="EXCLUDED_CONVERTED_TO_IGNORED" value="true" />
     <option name="TRACKING_ENABLED" value="true" />
@@ -17,31 +21,32 @@
       <file leaf-file-name="dashboard.html" pinned="false" current-in-tab="false">
         <entry file="file://$PROJECT_DIR$/templates/dashboard.html">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="-920">
-              <caret line="14" column="35" lean-forward="false" selection-start-line="14" selection-start-column="35" selection-end-line="14" selection-end-column="35" />
-              <folding>
-                <marker date="1509291597317" expanded="true" signature="4849:5572" ph="..." />
-                <marker date="1509291597317" expanded="true" signature="4875:5562" ph="..." />
-                <marker date="1509291597317" expanded="true" signature="4904:5451" ph="..." />
-                <marker date="1509291597317" expanded="true" signature="4940:4981" ph="..." />
-                <marker date="1509291597317" expanded="true" signature="5038:5044" ph="⋅" />
-                <marker date="1509291597317" expanded="true" signature="5084:5131" ph="..." />
-                <marker date="1509291597317" expanded="true" signature="5188:5194" ph="⋅" />
-                <marker date="1509291597317" expanded="true" signature="5234:5287" ph="..." />
-                <marker date="1509291597317" expanded="true" signature="5344:5350" ph="⋅" />
-                <marker date="1509291597317" expanded="true" signature="5390:5441" ph="..." />
-                <marker date="1509291597317" expanded="true" signature="5505:5511" ph="©" />
-              </folding>
+            <state relative-caret-position="374">
+              <caret line="168" column="26" lean-forward="true" selection-start-line="168" selection-start-column="26" selection-end-line="168" selection-end-column="26" />
+              <folding />
             </state>
           </provider>
         </entry>
       </file>
-      <file leaf-file-name="views.py" pinned="false" current-in-tab="false">
-        <entry file="file://$PROJECT_DIR$/stocks/views.py">
+      <file leaf-file-name="searchresults.html" pinned="false" current-in-tab="true">
+        <entry file="file://$PROJECT_DIR$/templates/searchresults.html">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="0">
-              <caret line="0" column="0" lean-forward="false" selection-start-line="0" selection-start-column="0" selection-end-line="0" selection-end-column="0" />
+            <state relative-caret-position="320">
+              <caret line="8" column="64" lean-forward="false" selection-start-line="8" selection-start-column="64" selection-end-line="8" selection-end-column="64" />
               <folding />
+            </state>
+          </provider>
+        </entry>
+      </file>
+      <file leaf-file-name="StockProfile.html" pinned="false" current-in-tab="false">
+        <entry file="file://$PROJECT_DIR$/templates/StockProfile.html">
+          <provider selected="true" editor-type-id="text-editor">
+            <state relative-caret-position="-300">
+              <caret line="12" column="18" lean-forward="true" selection-start-line="12" selection-start-column="18" selection-end-line="12" selection-end-column="18" />
+              <folding>
+                <element signature="n#style#0;n#div#0;n#!!top" expanded="true" />
+                <element signature="n#style#0;n#footer#0;n#!!top" expanded="true" />
+              </folding>
             </state>
           </provider>
         </entry>
@@ -49,56 +54,18 @@
       <file leaf-file-name="views.py" pinned="false" current-in-tab="false">
         <entry file="file://$PROJECT_DIR$/PocketStock/views.py">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="4320">
-              <caret line="129" column="22" lean-forward="false" selection-start-line="129" selection-start-column="22" selection-end-line="129" selection-end-column="22" />
+            <state relative-caret-position="802">
+              <caret line="209" column="52" lean-forward="false" selection-start-line="209" selection-start-column="52" selection-end-line="209" selection-end-column="52" />
               <folding />
             </state>
           </provider>
         </entry>
       </file>
-      <file leaf-file-name="forms.py" pinned="false" current-in-tab="false">
-        <entry file="file://$PROJECT_DIR$/PocketStock/forms.py">
+      <file leaf-file-name="charts.js" pinned="false" current-in-tab="false">
+        <entry file="file://$PROJECT_DIR$/stocks/static/js/charts.js">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="160">
-              <caret line="14" column="68" lean-forward="false" selection-start-line="14" selection-start-column="68" selection-end-line="14" selection-end-column="68" />
-              <folding>
-                <element signature="e#0#24#0" expanded="true" />
-              </folding>
-            </state>
-          </provider>
-        </entry>
-      </file>
-      <file leaf-file-name="signup.html" pinned="false" current-in-tab="true">
-        <entry file="file://$PROJECT_DIR$/templates/signup.html">
-          <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="480">
-              <caret line="15" column="36" lean-forward="false" selection-start-line="15" selection-start-column="36" selection-end-line="15" selection-end-column="36" />
-              <folding>
-                <element signature="n#style#0;n#div#0;n#div#0;n#div#0;n#!!top" expanded="true" />
-                <marker date="1509291882942" expanded="false" signature="520:548" ph="..." />
-                <marker date="1509291882942" expanded="false" signature="738:744" ph="⋅" />
-                <marker date="1509291882942" expanded="false" signature="888:894" ph="⋅" />
-                <marker date="1509291882942" expanded="false" signature="1044:1050" ph="⋅" />
-              </folding>
-            </state>
-          </provider>
-        </entry>
-      </file>
-      <file leaf-file-name="logged_out.html" pinned="false" current-in-tab="false">
-        <entry file="file://$PROJECT_DIR$/templates/registration/logged_out.html">
-          <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="0">
-              <caret line="0" column="0" lean-forward="false" selection-start-line="0" selection-start-column="0" selection-end-line="0" selection-end-column="0" />
-              <folding />
-            </state>
-          </provider>
-        </entry>
-      </file>
-      <file leaf-file-name="login.html" pinned="false" current-in-tab="false">
-        <entry file="file://$PROJECT_DIR$/templates/registration/login.html">
-          <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="80">
-              <caret line="2" column="0" lean-forward="false" selection-start-line="2" selection-start-column="0" selection-end-line="2" selection-end-column="0" />
+            <state relative-caret-position="760">
+              <caret line="34" column="9" lean-forward="true" selection-start-line="34" selection-start-column="9" selection-end-line="34" selection-end-column="9" />
               <folding />
             </state>
           </provider>
@@ -140,13 +107,15 @@
         <option value="$PROJECT_DIR$/stocks/insertData.py" />
         <option value="$PROJECT_DIR$/stocks/static/css/landing-page.css" />
         <option value="$PROJECT_DIR$/stocks/static/css/shop-homepage.css" />
-        <option value="$PROJECT_DIR$/templates/searchresults.html" />
-        <option value="$PROJECT_DIR$/PocketStock/urls.py" />
-        <option value="$PROJECT_DIR$/templates/dashboard.html" />
         <option value="$PROJECT_DIR$/stocks/static/js/search.js" />
-        <option value="$PROJECT_DIR$/PocketStock/views.py" />
         <option value="$PROJECT_DIR$/PocketStock/forms.py" />
         <option value="$PROJECT_DIR$/templates/signup.html" />
+        <option value="$PROJECT_DIR$/PocketStock/urls.py" />
+        <option value="$PROJECT_DIR$/templates/dashboard.html" />
+        <option value="$PROJECT_DIR$/templates/StockProfile.html" />
+        <option value="$PROJECT_DIR$/stocks/static/js/charts.js" />
+        <option value="$PROJECT_DIR$/PocketStock/views.py" />
+        <option value="$PROJECT_DIR$/templates/searchresults.html" />
       </list>
     </option>
   </component>
@@ -186,12 +155,6 @@
               <item name="Pocket-Stock" type="b2602c69:ProjectViewProjectNode" />
               <item name="Pocket-Stock" type="462c0819:PsiDirectoryNode" />
               <item name="stocks" type="462c0819:PsiDirectoryNode" />
-            </path>
-            <path>
-              <item name="Pocket-Stock" type="b2602c69:ProjectViewProjectNode" />
-              <item name="Pocket-Stock" type="462c0819:PsiDirectoryNode" />
-              <item name="stocks" type="462c0819:PsiDirectoryNode" />
-              <item name="migrations" type="462c0819:PsiDirectoryNode" />
             </path>
             <path>
               <item name="Pocket-Stock" type="b2602c69:ProjectViewProjectNode" />
@@ -359,27 +322,6 @@
     <watches-manager />
   </component>
   <component name="editorHistoryManager">
-    <entry file="file://$PROJECT_DIR$/PocketStock/urls.py">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="680">
-          <caret line="20" column="15" lean-forward="true" selection-start-line="20" selection-start-column="15" selection-end-line="20" selection-end-column="15" />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/PocketStock/settings.py">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="2800">
-          <caret line="70" column="17" lean-forward="false" selection-start-line="70" selection-start-column="17" selection-end-line="70" selection-end-column="17" />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/PocketStock/urls.py">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="760">
-          <caret line="20" column="44" lean-forward="false" selection-start-line="20" selection-start-column="44" selection-end-line="20" selection-end-column="44" />
-        </state>
-      </provider>
-    </entry>
     <entry file="file://$PROJECT_DIR$/accounts/views.py" />
     <entry file="file://$PROJECT_DIR$/accounts/urls.py" />
     <entry file="file://$PROJECT_DIR$/PocketStock/settings.py">
@@ -577,20 +519,6 @@
         </state>
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/templates/searchresults.html">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="640">
-          <caret line="16" column="0" lean-forward="false" selection-start-line="16" selection-start-column="0" selection-end-line="16" selection-end-column="0" />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/PocketStock/urls.py">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="800">
-          <caret line="23" column="22" lean-forward="false" selection-start-line="23" selection-start-column="10" selection-end-line="23" selection-end-column="22" />
-        </state>
-      </provider>
-    </entry>
     <entry file="file://$PROJECT_DIR$/stocks/static/js/search.js">
       <provider selected="true" editor-type-id="text-editor">
         <state relative-caret-position="280">
@@ -598,31 +526,27 @@
         </state>
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/templates/dashboard.html">
+    <entry file="file://$PROJECT_DIR$/templates/signup.html">
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="-920">
-          <caret line="14" column="35" lean-forward="false" selection-start-line="14" selection-start-column="35" selection-end-line="14" selection-end-column="35" />
+        <state relative-caret-position="800">
+          <caret line="23" column="47" lean-forward="true" selection-start-line="23" selection-start-column="47" selection-end-line="23" selection-end-column="47" />
           <folding>
-            <marker date="1509291597317" expanded="true" signature="4849:5572" ph="..." />
-            <marker date="1509291597317" expanded="true" signature="4875:5562" ph="..." />
-            <marker date="1509291597317" expanded="true" signature="4904:5451" ph="..." />
-            <marker date="1509291597317" expanded="true" signature="4940:4981" ph="..." />
-            <marker date="1509291597317" expanded="true" signature="5038:5044" ph="⋅" />
-            <marker date="1509291597317" expanded="true" signature="5084:5131" ph="..." />
-            <marker date="1509291597317" expanded="true" signature="5188:5194" ph="⋅" />
-            <marker date="1509291597317" expanded="true" signature="5234:5287" ph="..." />
-            <marker date="1509291597317" expanded="true" signature="5344:5350" ph="⋅" />
-            <marker date="1509291597317" expanded="true" signature="5390:5441" ph="..." />
-            <marker date="1509291597317" expanded="true" signature="5505:5511" ph="©" />
+            <element signature="n#style#0;n#div#0;n#div#0;n#div#0;n#!!top" expanded="true" />
+            <marker date="1509291882942" expanded="false" signature="520:548" ph="..." />
+            <marker date="1509291882942" expanded="false" signature="738:744" ph="⋅" />
+            <marker date="1509291882942" expanded="false" signature="888:894" ph="⋅" />
+            <marker date="1509291882942" expanded="false" signature="1044:1050" ph="⋅" />
           </folding>
         </state>
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/PocketStock/views.py">
+    <entry file="file://$PROJECT_DIR$/PocketStock/forms.py">
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="4320">
-          <caret line="129" column="22" lean-forward="false" selection-start-line="129" selection-start-column="22" selection-end-line="129" selection-end-column="22" />
-          <folding />
+        <state relative-caret-position="2520">
+          <caret line="63" column="8" lean-forward="true" selection-start-line="63" selection-start-column="8" selection-end-line="63" selection-end-column="8" />
+          <folding>
+            <element signature="e#0#24#0" expanded="false" />
+          </folding>
         </state>
       </provider>
     </entry>
@@ -634,27 +558,62 @@
         </state>
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/PocketStock/forms.py">
+    <entry file="file://$PROJECT_DIR$/PocketStock/urls.py">
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="160">
-          <caret line="14" column="68" lean-forward="false" selection-start-line="14" selection-start-column="68" selection-end-line="14" selection-end-column="68" />
+        <state relative-caret-position="1404">
+          <caret line="42" column="30" lean-forward="true" selection-start-line="42" selection-start-column="30" selection-end-line="42" selection-end-column="30" />
+          <folding />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/templates/registration/logged_out.html">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="0">
+          <caret line="0" column="0" lean-forward="false" selection-start-line="0" selection-start-column="0" selection-end-line="0" selection-end-column="0" />
+          <folding />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/stocks/static/js/charts.js">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="760">
+          <caret line="34" column="9" lean-forward="true" selection-start-line="34" selection-start-column="9" selection-end-line="34" selection-end-column="9" />
+          <folding />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/templates/dashboard.html">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="374">
+          <caret line="168" column="26" lean-forward="true" selection-start-line="168" selection-start-column="26" selection-end-line="168" selection-end-column="26" />
+          <folding />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/templates/StockProfile.html">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="-300">
+          <caret line="12" column="18" lean-forward="true" selection-start-line="12" selection-start-column="18" selection-end-line="12" selection-end-column="18" />
           <folding>
-            <element signature="e#0#24#0" expanded="true" />
+            <element signature="n#style#0;n#div#0;n#!!top" expanded="true" />
+            <element signature="n#style#0;n#footer#0;n#!!top" expanded="true" />
           </folding>
         </state>
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/templates/signup.html">
+    <entry file="file://$PROJECT_DIR$/PocketStock/views.py">
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="480">
-          <caret line="15" column="36" lean-forward="false" selection-start-line="15" selection-start-column="36" selection-end-line="15" selection-end-column="36" />
-          <folding>
-            <element signature="n#style#0;n#div#0;n#div#0;n#div#0;n#!!top" expanded="true" />
-            <marker date="1509291882942" expanded="false" signature="520:548" ph="..." />
-            <marker date="1509291882942" expanded="false" signature="738:744" ph="⋅" />
-            <marker date="1509291882942" expanded="false" signature="888:894" ph="⋅" />
-            <marker date="1509291882942" expanded="false" signature="1044:1050" ph="⋅" />
-          </folding>
+        <state relative-caret-position="802">
+          <caret line="209" column="52" lean-forward="false" selection-start-line="209" selection-start-column="52" selection-end-line="209" selection-end-column="52" />
+          <folding />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/templates/searchresults.html">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="320">
+          <caret line="8" column="64" lean-forward="false" selection-start-line="8" selection-start-column="64" selection-end-line="8" selection-end-column="64" />
+          <folding />
         </state>
       </provider>
     </entry>

@@ -39,5 +39,6 @@ urlpatterns = [
     url(r'^home/$', views.home, name='homepage'),
 
     url(r'^dashboard/$', views.registered_home, name='dashboard'),
-    url(r'^create_transaction/$', views.create_transaction, name='create_transaction')
+    url(r'^create_transaction/$', views.create_transaction, name='create_transaction'),
+    url(r'^stockProfile/$', views.stockProfile, name='stockProfile'),
 ]
