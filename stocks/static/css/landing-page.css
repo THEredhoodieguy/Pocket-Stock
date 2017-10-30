@@ -9,6 +9,14 @@ body, html {
   height: 100%;
   overflow-y: hidden;
   position: fixed;
+  background: #abbaab; /* For browsers that do not support gradients */
+  background: -webkit-linear-gradient(#abbaab, #ffffff); /* For Safari 5.1 to 6.0 */
+  background: -o-linear-gradient(#abbaab, #ffffff); /* For Opera 11.1 to 12.0 */
+  background: -moz-linear-gradient(#abbaab, #ffffff); /* For Firefox 3.6 to 15 */
+  background: linear-gradient(#abbaab, #ffffff);
+  background-repeat: no-repeat;
+  background-attachment: fixed;
+
 }
 
 body, h1, h2, h3, h4, h5, h6 {
