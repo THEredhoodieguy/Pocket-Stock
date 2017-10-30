@@ -68,7 +68,9 @@ def registered_home(request):
         obj['qty'] = i.numberPurchased
         obj['percent'] = round((company_statuses[i.whichStock] - (i.amountSpent / i.numberPurchased)) / (i.amountSpent / i.numberPurchased) * 100, 2)
         obj['currentPrice'] = company_statuses[i.whichStock]
-        obj['name'] = i.whichStock
+        obj['fullname'] = i.whichStock.fullName
+        link = '/stockProfile?stockname=' + i.whichStock.tickerName
+        obj['link'] = link
         obj['valuation'] = i.numberPurchased * company_statuses[i.whichStock]
         output_list.append(obj)
 
@@ -210,13 +212,10 @@ def stockProfile(request):
     tickerName = request.GET.get('stockname')
     s_ins = StockProfileModel.objects.get(tickerName=tickerName)
     dataForStock = StockStatusModel.objects.filter(whichStock = s_ins).order_by('date')
-    print dataForStock
     finalData = OrderedDict()
     for data in dataForStock:
         tempMap = {'highPrice': str(data.highPrice), 'lowPrice': str(data.lowPrice), 'closePrice': str(data.currentPrice)}
         finalData[data.date.strftime('%Y/%m/%d')] = tempMap
-    print 'hihi'
-    print finalData
     finalData = json.dumps(finalData)
     #print finalData
     return render(request, 'StockProfile.html',{'stockName': s_ins.fullName,'tickerName':s_ins.tickerName, 'finalData': finalData})
