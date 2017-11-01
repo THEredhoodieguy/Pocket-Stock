@@ -153,10 +153,11 @@ def create_transaction(request):
 @duo_auth.duo_auth_required
 def searchResults(request):
     if request.method == 'GET':
-        print 'hi'
         query = request.GET.get('query')
         results = StockProfileModel.objects.filter(Q(tickerName__icontains=query)|Q(fullName__icontains=query))
-        print results
+        if len(results) == 1:
+            link = '/stockProfile?stockname='+ results[0].tickerName
+            return redirect(link)
         resultsToSend = {}
         for i in range(0, len(results)):
             link = '/stockProfile?stockname='+ results[i].tickerName
