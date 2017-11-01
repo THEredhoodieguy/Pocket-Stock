@@ -30,3 +30,15 @@ background: #2379B1;
   text-align: center;
   color: #000000;
 }
+
+.status {
+    font-size: 14px;
+    color: red;
+    display: inline;
+}
+
+.yo{
+  margin-left: 70px;
+  
+
+}
