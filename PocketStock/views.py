@@ -164,6 +164,19 @@ def searchResults(request):
             resultsToSend[results[i].fullName] = link
         return render(request, 'searchresults.html', {'searchres': resultsToSend})
 
+def getCompanyDomain(companyName):
+    URL = 'https://api.fullcontact.com/v2/company/search.json?apiKey=6a0ba473da413b1f&companyName=' + companyName
+    try:
+        # sending get request and saving the response as response object
+        response = requests.get(url=URL)
+        data = response.json()
+        for i in data:
+            return str(i['lookupDomain'])
+            break;
+    except Exception as e:
+        print e
+        return 'Completed'
+
 def insertData(request):
     k={
         'WFC':'Wells Fargo & Co',
@@ -176,12 +189,29 @@ def insertData(request):
         'ORCL': 'Oracle Corporation',
         'GS': 'Goldman Sachs Group Inc',
         'JPM': 'JPMorgan Chase & Co.',
+        'Appl':'Apple Inc',
     }
     #code to companies to the stockprofile model
-    '''
     for i in k.keys():
         s = StockProfileModel(tickerName=i, fullName=k[i])
-        s.save()
+        s_ins = StockProfileModel.objects.get(tickerName=i)
+        domain = getCompanyDomain(s_ins.fullName)
+        print domain
+        URL = 'https://api.fullcontact.com/v2/company/lookup.json?apiKey=6a0ba473da413b1f&domain=' + domain
+        try:
+            # sending get request and saving the response as response object
+            response = requests.get(url=URL)
+            data = response.json()
+            s_ins.overview = data['organization']['overview']
+            s_ins.founded = data['organization']['founded']
+
+        except:
+            s_ins.overview = "couldn't Fetch"
+            s_ins.founded = "couldn't fetch"
+
+        s_ins.save()
+
+    return HttpResponse('done')
     '''
     #code to add stocks
     tickName = 'MSFT'
@@ -196,6 +226,7 @@ def insertData(request):
         s_ins = StockProfileModel.objects.get(tickerName=tickName)
         s = StockStatusModel(whichStock=s_ins, date=datetime_object, highPrice=ll[i]['2. high'], lowPrice = ll[i]['3. low'], currentPrice=ll[i]['4. close'])
         s.save()
+    '''
 
 @login_required
 @duo_auth.duo_auth_required
@@ -219,4 +250,4 @@ def stockProfile(request):
         finalData[data.date.strftime('%Y/%m/%d')] = tempMap
     finalData = json.dumps(finalData)
     #print finalData
-    return render(request, 'StockProfile.html',{'stockName': s_ins.fullName,'tickerName':s_ins.tickerName, 'finalData': finalData})
+    return render(request, 'StockProfile.html',{'stockName': s_ins.fullName,'tickerName':s_ins.tickerName,'overview':s_ins.overview,'founded':s_ins.founded, 'finalData': finalData})

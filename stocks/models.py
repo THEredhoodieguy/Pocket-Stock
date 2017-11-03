@@ -15,6 +15,8 @@ class StockProfileModel(models.Model):
     tickerName = models.CharField(max_length=10, primary_key=True)
     #The full name is the full name of the company
     fullName = models.CharField(max_length=50)
+    overview = models.CharField(max_length=2000)
+    founded = models.CharField(max_length=4)
 
     def __unicode__(self):
         return self.fullName
