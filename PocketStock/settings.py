@@ -36,7 +36,9 @@ INSTALLED_APPS = [
     'django.contrib.sessions',
     'django.contrib.messages',
     'django.contrib.staticfiles',
-    'stocks'
+    'stocks',
+    'django_cron',
+    'django_crontab'
 ]
 
 MIDDLEWARE = [
@@ -48,6 +50,10 @@ MIDDLEWARE = [
     'django.contrib.messages.middleware.MessageMiddleware',
     'django.middleware.clickjacking.XFrameOptionsMiddleware',
     'social_django.middleware.SocialAuthExceptionMiddleware'
+]
+
+CRON_CLASSES = [
+    "PocketStock.cron.MyCronJob",
 ]
 
 ROOT_URLCONF = 'PocketStock.urls'
