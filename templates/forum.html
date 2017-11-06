@@ -10,8 +10,8 @@
                {% csrf_token %}
                 <h2>Make Post</h2>
                 <div class="new-post-block">
-                    <div class="new-post-block-child"><input id="title" name="posttitle" type="text" placeholder="Post Title" required></div>
-                    <div class="new-post-block-child"><textarea  name="postbody" rows="4" cols="50" placeholder="Post Body.."></textarea></div>
+                    <div class="new-post-block-child"><input id="title" class="titleLength" name="posttitle" type="text" placeholder="Post Title" required></div>
+                    <div class="new-post-block-child"><textarea  name="postbody" rows="4" cols="100" placeholder="Post Body.."></textarea></div>
                     <div class="new-post-block-child"><input type="submit" class="btn-sub" value="Post"></div>
                 </div>
           </form>
@@ -24,7 +24,7 @@
                       <div class="post-body">{{ post.messageBody }}</div>
                       <div class="post-details">Posted By: {{ post.username }} &nbsp &nbsp On: {{post.date}}</div>
                   </div>
-                  {% endfor %}
+              {% endfor %}
 
           </div>
         </div>

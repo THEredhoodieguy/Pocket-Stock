@@ -87,7 +87,7 @@ footer {
   padding: 10px 0;
   background-color: #f8f8f8;
   width: 100% !important;
-  height: 142px;
+  height: 20px;
 }
 
 .list-group{
@@ -170,6 +170,9 @@ body {
 }
 .new-post-block-child{
     margin-top: 10px;
+}
+.titleLength{
+    width: 30%;
 }
 
 .btn-sub{

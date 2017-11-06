@@ -276,7 +276,6 @@ def forumPage(request):
         tempPost['username'] = post.user.username
         tempPost['messageTitle'] = post.messageTitle
         tempPost['messageBody'] = post.messageBody
-        print post.datePosted.strftime("%B %d, %Y")
         tempPost['date'] = post.datePosted.strftime("%b %d, %Y, %HH: %Mm")
         userPosts.append(tempPost)
 
