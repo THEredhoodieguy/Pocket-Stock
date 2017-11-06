@@ -64,3 +64,19 @@ class TransactionModel(models.Model):
 
     def __unicode__(self):
         return str(self.user) + ': ' + str(self.whichStock) + ' amount:' + str(self.numberPurchased) + ' date: ' + self.datePurchased.strftime("%d/%m/%y ; %H:%M")
+
+class ForumModel(models.Model):
+    """
+    Model representing transactions that a use has made, keeps track of money spent on stock, amount purchased, date purchased
+    """
+    #What user the transaction is associated with
+    user = models.ForeignKey(User)
+    #The message title for the forum
+    messageTitle = models.CharField(max_length=200)
+    #The number of stocks purchased
+    messageBody = models.CharField(max_length=2000)
+    #The date on which day it was posted
+    datePosted = models.DateTimeField()
+
+    def __unicode__(self):
+        return str(self.user) + ': ' + str(self.messageTitle)+ ' date: ' + self.datePosted.strftime("%d/%m/%y ; %H:%M")

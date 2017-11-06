@@ -8,3 +8,4 @@ from stocks.models import *
 admin.site.register(StockProfileModel)
 admin.site.register(StockStatusModel)
 admin.site.register(TransactionModel)
+admin.site.register(ForumModel)

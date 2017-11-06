@@ -41,4 +41,5 @@ urlpatterns = [
     url(r'^dashboard/$', views.registered_home, name='dashboard'),
     url(r'^create_transaction/$', views.create_transaction, name='create_transaction'),
     url(r'^stockProfile/$', views.stockProfile, name='stockProfile'),
+    url(r'^forum/', views.forumPage, name="forum"),
 ]

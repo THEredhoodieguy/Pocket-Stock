@@ -18,7 +18,7 @@ from social_django.models import UserSocialAuth
 
 from PocketStock import duo_auth
 from datetime import datetime
-
+from stocks import models
 from stocks.models import TransactionModel, StockStatusModel, StockProfileModel
 import requests
 from collections import OrderedDict
@@ -251,3 +251,33 @@ def stockProfile(request):
     finalData = json.dumps(finalData)
     #print finalData
     return render(request, 'StockProfile.html',{'stockName': s_ins.fullName,'tickerName':s_ins.tickerName,'overview':s_ins.overview,'founded':s_ins.founded, 'finalData': finalData})
+
+@login_required
+@duo_auth.duo_auth_required
+def forumPage(request):
+
+    #Getting the post details  from the post request
+    postTitle =  request.POST.get('posttitle')
+    postBody =  request.POST.get('postbody')
+    if postBody != None:
+        #Saving the post
+        post = models.ForumModel()
+        post.user = request.user
+        post.messageTitle = postTitle
+        post.messageBody = postBody
+        post.datePosted = datetime.now()
+        post.save()
+
+    #Retreiving all the posts
+    posts = models.ForumModel.objects.all().order_by('-datePosted')
+    userPosts = []
+    for post in posts:
+        tempPost = {}
+        tempPost['username'] = post.user.username
+        tempPost['messageTitle'] = post.messageTitle
+        tempPost['messageBody'] = post.messageBody
+        print post.datePosted.strftime("%B %d, %Y")
+        tempPost['date'] = post.datePosted.strftime("%b %d, %Y, %HH: %Mm")
+        userPosts.append(tempPost)
+
+    return render(request,'forum.html',{'posts':userPosts})
