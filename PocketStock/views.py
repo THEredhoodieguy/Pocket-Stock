@@ -19,9 +19,12 @@ from social_django.models import UserSocialAuth
 from PocketStock import duo_auth
 from datetime import datetime
 from stocks import models
-from stocks.models import TransactionModel, StockStatusModel, StockProfileModel
+from stocks.models import TransactionModel, StockStatusModel, StockProfileModel, Room
 import requests
 from collections import OrderedDict
+from django.db import transaction
+import random
+import string
 
 # Create your views here.
 def home(request):
@@ -280,3 +283,35 @@ def forumPage(request):
         userPosts.append(tempPost)
 
     return render(request,'forum.html',{'posts':userPosts})
+
+
+@login_required
+@duo_auth.duo_auth_required
+def chat_room(request, label):
+    # If the room with the given label doesn't exist, automatically create it
+    # upon first visit (a la etherpad).
+    room, created = Room.objects.get_or_create(label=label)
+
+    # We want to show the last 50 messages, ordered most-recent-last
+    messages = reversed(room.messages.order_by('-timestamp')[:50])
+
+    return render(request, "room.html", {
+        'room': room,
+        'messages': messages,
+    })
+
+@login_required
+@duo_auth.duo_auth_required
+def new_room(request):
+    """
+    Randomly create a new room, and redirect to it.
+    """
+    new_room = None
+    while not new_room:
+        with transaction.atomic():
+            #label = haikunator.haikunate()
+            label = ''.join(random.choice(string.ascii_uppercase + string.digits) for _ in range(8))
+            if Room.objects.filter(label=label).exists():
+                continue
+            new_room = Room.objects.create(label=label)
+    return redirect(chat_room, label=label)

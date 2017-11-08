@@ -42,4 +42,10 @@ urlpatterns = [
     url(r'^create_transaction/$', views.create_transaction, name='create_transaction'),
     url(r'^stockProfile/$', views.stockProfile, name='stockProfile'),
     url(r'^forum/', views.forumPage, name="forum"),
+
+    url(r'^new/$', views.new_room, name='new_room'),
+    url(r'^(?P<label>[\w-]{,50})/$', views.chat_room, name='chat_room'),
 ]
+
+
+channel_routing = {}

@@ -176,3 +176,14 @@ EMAIL_HOST_USER = 'pocketstock2017@gmail.com' # email id
 EMAIL_HOST_PASSWORD = 'MAAR2094' #password
 EMAIL_PORT = 587
 EMAIL_USE_TLS = True
+
+
+CHANNEL_LAYERS = {
+    "default": {
+        "BACKEND": "asgi_redis.RedisChannelLayer",
+        "CONFIG": {
+            "hosts": [os.environ.get('REDIS_URL', 'redis://localhost:8000')],
+        },
+        "ROUTING": "chat.routing.channel_routing",
+    },
+}
