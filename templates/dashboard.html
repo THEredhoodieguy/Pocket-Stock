@@ -143,7 +143,7 @@
 {%endblock%}
     <!-- Footer -->
 {% block footer %}
-<footer>
+<footer style="height: 100px; position:absolute; bottom:0;">
   <div class="container">
     <ul class="list-inline">
       <li class="list-inline-item">
@@ -169,7 +169,8 @@
 
     <!-- Bootstrap core JavaScript -->
 
-    {% load staticfiles %}
+  {% load staticfiles %}
+
     <script src="https://code.jquery.com/jquery-1.12.4.js"></script>
     <script src="https://code.jquery.com/ui/1.12.1/jquery-ui.js"></script>
     <script src="{% static 'js/search.js' %}"></script>

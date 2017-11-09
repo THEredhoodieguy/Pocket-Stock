@@ -25,7 +25,7 @@ from collections import OrderedDict
 from django.db import transaction
 import random
 import string
-
+import decimal
 # Create your views here.
 def home(request):
     if request.user.is_authenticated():
@@ -51,19 +51,36 @@ def registered_home(request):
     #iterate through to get all companies the user has stocks in
     for i in all_entries:
         if i.whichStock not in companies:
+            print i.whichStock.tickerName
             companies.append(i.whichStock)
 
     company_statuses = {}
-
     #get the most recent status of the companies that the user has stock in
-    for i in companies:
-        company_statuses[i] = StockStatusModel.objects.filter(whichStock=i).order_by('date')[0].currentPrice
-
-    # company_fullnames = {}
-
-    # #get the full name of the companies that the user has stock in
     # for i in companies:
-    #     company_fullnames[i] = StockProfileModel.objects.get(tickerName=i).fullName
+    #     company_statuses[i] = StockStatusModel.objects.filter(whichStock=i).order_by('date')[0].currentPrice
+
+    #Company status object has company name
+    #Making the API call to get the real time data
+    APIKEY = '2NWT4MKPZ594L2GF'
+    for i in companies:
+        companyShortName = i.tickerName
+        function = 'TIME_SERIES_INTRADAY'
+        # api-endpoint
+        URL = "https://www.alphavantage.co/query?function=" + function + "&symbol=" + companyShortName + "&interval=1min&outputsize=compact&apikey=" + APIKEY
+        data = None
+        try:
+            # sending get request and saving the response as response object
+            response = requests.get(url=URL)
+            if response.headers['Via'] == '1.1 vegur':
+                #print 'Status OK'
+                # extracting data in json format
+                data = response.json()
+                lastRefreshed = data['Meta Data']['3. Last Refreshed']
+                company_statuses[i] = decimal.Decimal(data['Time Series (1min)'][lastRefreshed]['4. close'])
+            else:
+                print "Api didn't respond"
+        except:
+            company_statuses[i] = decimal.Decimal('0')
 
     #Associate all related info
     for i in all_entries:
@@ -86,7 +103,6 @@ def registered_home(request):
 @duo_auth.duo_auth_required
 def settings(request):
     user = request.user
-
     try:
         facebook_login = user.social_auth.get(provider='facebook')
     except UserSocialAuth.DoesNotExist:
@@ -192,32 +208,32 @@ def insertData(request):
         'ORCL': 'Oracle Corporation',
         'GS': 'Goldman Sachs Group Inc',
         'JPM': 'JPMorgan Chase & Co.',
-        'Appl':'Apple Inc',
+        'AAPL':'Apple Inc',
     }
     #code to companies to the stockprofile model
-    for i in k.keys():
-        s = StockProfileModel(tickerName=i, fullName=k[i])
-        s_ins = StockProfileModel.objects.get(tickerName=i)
-        domain = getCompanyDomain(s_ins.fullName)
-        print domain
-        URL = 'https://api.fullcontact.com/v2/company/lookup.json?apiKey=6a0ba473da413b1f&domain=' + domain
-        try:
-            # sending get request and saving the response as response object
-            response = requests.get(url=URL)
-            data = response.json()
-            s_ins.overview = data['organization']['overview']
-            s_ins.founded = data['organization']['founded']
-
-        except:
-            s_ins.overview = "couldn't Fetch"
-            s_ins.founded = "couldn't fetch"
-
-        s_ins.save()
-
-    return HttpResponse('done')
-    '''
+    # for i in k.keys():
+    #     s = StockProfileModel(tickerName=i, fullName=k[i])
+    #     s_ins = StockProfileModel.objects.get(tickerName=i)
+    #     domain = getCompanyDomain(s_ins.fullName)
+    #     print domain
+    #     URL = 'https://api.fullcontact.com/v2/company/lookup.json?apiKey=6a0ba473da413b1f&domain=' + domain
+    #     try:
+    #         # sending get request and saving the response as response object
+    #         response = requests.get(url=URL)
+    #         data = response.json()
+    #         s_ins.overview = data['organization']['overview']
+    #         s_ins.founded = data['organization']['founded']
+    #
+    #     except:
+    #         s_ins.overview = "couldn't Fetch"
+    #         s_ins.founded = "couldn't fetch"
+    #
+    #     s_ins.save()
+    #
+    # return HttpResponse('done')
+    # '''
     #code to add stocks
-    tickName = 'MSFT'
+    tickName = 'AAPL'
     respons = requests.get('https://www.alphavantage.co/query?function=TIME_SERIES_DAILY&symbol='+tickName+'&apikey=2NWT4MKPZ594L2GF')
     ll = json.loads(respons.text)
     ll = ll['Time Series (Daily)']
@@ -229,7 +245,6 @@ def insertData(request):
         s_ins = StockProfileModel.objects.get(tickerName=tickName)
         s = StockStatusModel(whichStock=s_ins, date=datetime_object, highPrice=ll[i]['2. high'], lowPrice = ll[i]['3. low'], currentPrice=ll[i]['4. close'])
         s.save()
-    '''
 
 @login_required
 @duo_auth.duo_auth_required
