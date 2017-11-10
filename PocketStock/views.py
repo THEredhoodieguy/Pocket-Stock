@@ -184,7 +184,7 @@ def searchResults(request):
         return render(request, 'searchresults.html', {'searchres': resultsToSend})
 
 def getCompanyDomain(companyName):
-    URL = 'https://api.fullcontact.com/v2/company/search.json?apiKey=6a0ba473da413b1f&companyName=' + companyName
+    URL = 'https://api.fullcontact.com/v2/company/search.json?apiKey=5556c95482238100&companyName=' + companyName
     try:
         # sending get request and saving the response as response object
         response = requests.get(url=URL)
@@ -211,40 +211,40 @@ def insertData(request):
         'AAPL':'Apple Inc',
     }
     #code to companies to the stockprofile model
-    # for i in k.keys():
-    #     s = StockProfileModel(tickerName=i, fullName=k[i])
-    #     s_ins = StockProfileModel.objects.get(tickerName=i)
-    #     domain = getCompanyDomain(s_ins.fullName)
-    #     print domain
-    #     URL = 'https://api.fullcontact.com/v2/company/lookup.json?apiKey=6a0ba473da413b1f&domain=' + domain
-    #     try:
-    #         # sending get request and saving the response as response object
-    #         response = requests.get(url=URL)
-    #         data = response.json()
-    #         s_ins.overview = data['organization']['overview']
-    #         s_ins.founded = data['organization']['founded']
-    #
-    #     except:
-    #         s_ins.overview = "couldn't Fetch"
-    #         s_ins.founded = "couldn't fetch"
-    #
-    #     s_ins.save()
-    #
-    # return HttpResponse('done')
-    # '''
-    #code to add stocks
-    tickName = 'AAPL'
-    respons = requests.get('https://www.alphavantage.co/query?function=TIME_SERIES_DAILY&symbol='+tickName+'&apikey=2NWT4MKPZ594L2GF')
-    ll = json.loads(respons.text)
-    ll = ll['Time Series (Daily)']
-    for i in ll.keys():
-        s = i
-        s = s + ' 00:00:00'
+    for i in k.keys():
+        s = StockProfileModel(tickerName=i, fullName=k[i])
+        s_ins = StockProfileModel.objects.get(tickerName=i)
+        domain = getCompanyDomain(s_ins.fullName)
+        print domain
 
-        datetime_object = datetime.strptime(s, '%Y-%m-%d %H:%M:%S')
-        s_ins = StockProfileModel.objects.get(tickerName=tickName)
-        s = StockStatusModel(whichStock=s_ins, date=datetime_object, highPrice=ll[i]['2. high'], lowPrice = ll[i]['3. low'], currentPrice=ll[i]['4. close'])
-        s.save()
+        URL = 'https://api.fullcontact.com/v2/company/lookup.json?apiKey=5556c95482238100&domain=' + domain
+        try:
+            # sending get request and saving the response as response object
+            response = requests.get(url=URL)
+            data = response.json()
+            s_ins.overview = data['organization']['overview']
+            s_ins.founded = data['organization']['founded']
+
+        except:
+            s_ins.overview = "couldn't Fetch"
+            s_ins.founded = "couldn't fetch"
+
+        s_ins.save()
+
+    return HttpResponse('done')
+    #code to add stocks
+    # tickName = 'AAPL'
+    # respons = requests.get('https://www.alphavantage.co/query?function=TIME_SERIES_DAILY&symbol='+tickName+'&apikey=2NWT4MKPZ594L2GF')
+    # ll = json.loads(respons.text)
+    # ll = ll['Time Series (Daily)']
+    # for i in ll.keys():
+    #     s = i
+    #     s = s + ' 00:00:00'
+    #
+    #     datetime_object = datetime.strptime(s, '%Y-%m-%d %H:%M:%S')
+    #     s_ins = StockProfileModel.objects.get(tickerName=tickName)
+    #     s = StockStatusModel(whichStock=s_ins, date=datetime_object, highPrice=ll[i]['2. high'], lowPrice = ll[i]['3. low'], currentPrice=ll[i]['4. close'])
+    #     s.save()
 
 @login_required
 @duo_auth.duo_auth_required
