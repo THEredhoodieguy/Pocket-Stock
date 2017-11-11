@@ -173,15 +173,98 @@ def create_transaction(request):
 def searchResults(request):
     if request.method == 'GET':
         query = request.GET.get('query')
-        results = StockProfileModel.objects.filter(Q(tickerName__icontains=query)|Q(fullName__icontains=query))
-        if len(results) == 1:
-            link = '/stockProfile?stockname='+ results[0].tickerName
-            return redirect(link)
+        #Before Changes
+        # results = StockProfileModel.objects.filter(Q(tickerName__icontains=query)|Q(fullName__icontains=query))
+        # if len(results) == 1:
+        #     link = '/stockProfile?stockname='+ results[0].tickerName
+        #     return redirect(link)
+        # resultsToSend = {}
+        # for i in range(0, len(results)):
+        #     link = '/stockProfile?stockname='+ results[i].tickerName
+        #     resultsToSend[results[i].fullName] = link
+        # return render(request, 'searchresults.html', {'searchres': resultsToSend})
+
+        #After Changes
+        qu= request.GET['category']
+        print query
+        print qu
         resultsToSend = {}
-        for i in range(0, len(results)):
-            link = '/stockProfile?stockname='+ results[i].tickerName
-            resultsToSend[results[i].fullName] = link
-        return render(request, 'searchresults.html', {'searchres': resultsToSend})
+        results = StockProfileModel.objects.filter(Q(tickerName__icontains=query)|Q(fullName__icontains=query))
+        print "results",results
+        if qu !="All":
+            results1= StockProfileModel.objects.filter(Q(category__icontains=qu))
+            print results1
+            if not query:
+                print "yes"
+                for i in range(len(results1)):
+                    link = '/stockProfile?stockname='+ results1[i].tickerName
+                    resultsToSend[results1[i].fullName] = link
+            else:
+                i=0
+
+                # if len(results)>=len(results1) or len(results)==1:
+                #
+                #     while(i < len(results)):
+                #         if len(results)==1:
+                #             print i
+                #             if results[0].tickerName==results1[i].tickerName:
+                #                 print "success"
+                #                 link = '/stockProfile?stockname='+ results[0].tickerName
+                #                 resultsToSend[results[0].fullName] = link
+                #                 break
+                #             else:
+                #                 print "yo"
+                #                 i=i+1
+                #                 continue
+                #         else:
+                #             for x in range(len(results1)):
+                #
+                #                 if results[i].tickerName==results1[x].tickerName:
+                #                     link = '/stockProfile?stockname='+ results[i].tickerName
+                #                     resultsToSend[results[i].fullName] = link
+                #
+                #         i+=1
+                # else:
+                #     while(i < len(results1)):
+                #    #for i in range(len(results)):
+                #        #print "results of i",results[]
+                #        print "results1 of i",results1[i]
+                #        #print len(results)
+                #
+                #        for x in range(len(results1)):
+                #            if results[i].tickerName==results1[i].tickerName:
+                #                link = '/stockProfile?stockname='+ results[i].tickerName
+                #                resultsToSend[results[i].fullName] = link
+                #
+                #        i+=1
+
+                Search={}
+                for i in range(len(results)):
+                    Search[i]=results[i]
+                print Search
+                for j in range(len(results1)):
+                    print results1[j]
+
+                    if results1[j] in Search.values():
+                        if len(results)==1:
+                             print "success"
+                             link = '/stockProfile?stockname='+ results1[j].tickerName
+                             return redirect(link)
+                        else:
+                             print "success"
+                             link = '/stockProfile?stockname='+ results1[j].tickerName
+                             resultsToSend[results1[j].fullName] = link
+
+        else:
+            if len(results) == 1:
+                link = '/stockProfile?stockname='+ results[0].tickerName
+                return redirect(link)
+
+            for i in range(0, len(results)):
+                link = '/stockProfile?stockname='+ results[i].tickerName
+
+                resultsToSend[results[i].fullName] = link
+        return render(request, 'searchresults.html', {'searchres': resultsToSend,'categ':qu})
 
 def getCompanyDomain(companyName):
     URL = 'https://api.fullcontact.com/v2/company/search.json?apiKey=5556c95482238100&companyName=' + companyName

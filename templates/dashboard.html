@@ -26,7 +26,7 @@
     <nav class="navbar navbar-expand-lg navbar-light bg-light fixed-top">
       <div class="container">
         <strong><a class="navbar-brand" href="/">Pocket Stock</a></strong>
-        <div class="col-sm-3 col-md-3">
+        <div class="col-sm-2 col-md-2">
 
     </div>
         <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarResponsive" aria-controls="navbarResponsive" aria-expanded="false" aria-label="Toggle navigation">
@@ -40,7 +40,18 @@
             <li class="nav-item">
               <form class="navbar-form" action="/searchResults" role="search">
                 <div class="input-group">
-                  <input id="tags" type="text" class="form-control navbar-search-box" placeholder="Search" name="query" autocomplete="on" required>
+                   <!-- Changes -->
+                  <select class="selectpicker show-tick" data-style="btn-success" name="category">
+                        <option value="All">All</option>
+                        <option value="Technology">Technology</option>
+                      <option value="Consumer Goods">Consumer</option>
+                       <option value="Financial">Financial</option>
+                       <option value="Basic Materials">Basic Materials</option>
+                       <option value="Services">Services</option>
+
+                  </select>
+                   <!-- Changes end -->
+                  <input id="tags" type="text" class="form-control navbar-search-box" placeholder="Search" name="query" autocomplete="on">
                   <input type="submit" class="btn btn-outline-success" value="Search">
                 </div>
               </form>
@@ -48,10 +59,10 @@
 
             <li class="nav-item">
               <a class="nav-link" href="/create_transaction">Buy Stocks
-                <span class="sr-only">(current)</span>
+                <!-- <span class="sr-only">(current)</span> -->
               </a>
             </li>
-
+            
             <li class="nav-item">
               <a class="nav-link" href="#">Chat</a>
             </li>

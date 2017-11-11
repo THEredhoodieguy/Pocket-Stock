@@ -19,6 +19,7 @@ class StockProfileModel(models.Model):
     fullName = models.CharField(max_length=50)
     overview = models.CharField(max_length=2000)
     founded = models.CharField(max_length=4)
+    category= models.CharField(max_length=50)
 
     def __unicode__(self):
         return self.fullName
