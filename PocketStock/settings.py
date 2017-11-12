@@ -185,6 +185,6 @@ CHANNEL_LAYERS = {
         "CONFIG": {
             "hosts": [os.environ.get('REDIS_URL', 'redis://localhost:8000')],
         },
-        "ROUTING": "chat.routing.channel_routing",
+        "ROUTING": "PocketStock.routing.channel_routing",
     },
 }
