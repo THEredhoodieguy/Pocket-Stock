@@ -18,11 +18,14 @@ from social_django.models import UserSocialAuth
 
 from PocketStock import duo_auth
 from datetime import datetime
-
-from stocks.models import TransactionModel, StockStatusModel, StockProfileModel
+from stocks import models
+from stocks.models import TransactionModel, StockStatusModel, StockProfileModel, Room
 import requests
 from collections import OrderedDict
-
+from django.db import transaction
+import random
+import string
+import decimal
 # Create your views here.
 def home(request):
     if request.user.is_authenticated():
@@ -48,19 +51,36 @@ def registered_home(request):
     #iterate through to get all companies the user has stocks in
     for i in all_entries:
         if i.whichStock not in companies:
+            print i.whichStock.tickerName
             companies.append(i.whichStock)
 
     company_statuses = {}
-
     #get the most recent status of the companies that the user has stock in
-    for i in companies:
-        company_statuses[i] = StockStatusModel.objects.filter(whichStock=i).order_by('date')[0].currentPrice
-
-    # company_fullnames = {}
-
-    # #get the full name of the companies that the user has stock in
     # for i in companies:
-    #     company_fullnames[i] = StockProfileModel.objects.get(tickerName=i).fullName
+    #     company_statuses[i] = StockStatusModel.objects.filter(whichStock=i).order_by('date')[0].currentPrice
+
+    #Company status object has company name
+    #Making the API call to get the real time data
+    APIKEY = '2NWT4MKPZ594L2GF'
+    for i in companies:
+        companyShortName = i.tickerName
+        function = 'TIME_SERIES_INTRADAY'
+        # api-endpoint
+        URL = "https://www.alphavantage.co/query?function=" + function + "&symbol=" + companyShortName + "&interval=1min&outputsize=compact&apikey=" + APIKEY
+        data = None
+        try:
+            # sending get request and saving the response as response object
+            response = requests.get(url=URL)
+            if response.headers['Via'] == '1.1 vegur':
+                #print 'Status OK'
+                # extracting data in json format
+                data = response.json()
+                lastRefreshed = data['Meta Data']['3. Last Refreshed']
+                company_statuses[i] = decimal.Decimal(data['Time Series (1min)'][lastRefreshed]['4. close'])
+            else:
+                print "Api didn't respond"
+        except:
+            company_statuses[i] = decimal.Decimal('0')
 
     #Associate all related info
     for i in all_entries:
@@ -83,7 +103,6 @@ def registered_home(request):
 @duo_auth.duo_auth_required
 def settings(request):
     user = request.user
-
     try:
         facebook_login = user.social_auth.get(provider='facebook')
     except UserSocialAuth.DoesNotExist:
@@ -154,15 +173,111 @@ def create_transaction(request):
 def searchResults(request):
     if request.method == 'GET':
         query = request.GET.get('query')
-        results = StockProfileModel.objects.filter(Q(tickerName__icontains=query)|Q(fullName__icontains=query))
-        if len(results) == 1:
-            link = '/stockProfile?stockname='+ results[0].tickerName
-            return redirect(link)
+        #Before Changes
+        # results = StockProfileModel.objects.filter(Q(tickerName__icontains=query)|Q(fullName__icontains=query))
+        # if len(results) == 1:
+        #     link = '/stockProfile?stockname='+ results[0].tickerName
+        #     return redirect(link)
+        # resultsToSend = {}
+        # for i in range(0, len(results)):
+        #     link = '/stockProfile?stockname='+ results[i].tickerName
+        #     resultsToSend[results[i].fullName] = link
+        # return render(request, 'searchresults.html', {'searchres': resultsToSend})
+
+        #After Changes
+        qu= request.GET['category']
+        print query
+        print qu
         resultsToSend = {}
-        for i in range(0, len(results)):
-            link = '/stockProfile?stockname='+ results[i].tickerName
-            resultsToSend[results[i].fullName] = link
-        return render(request, 'searchresults.html', {'searchres': resultsToSend})
+        results = StockProfileModel.objects.filter(Q(tickerName__icontains=query)|Q(fullName__icontains=query))
+        print "results",results
+        if qu !="All":
+            results1= StockProfileModel.objects.filter(Q(category__icontains=qu))
+            print results1
+            if not query:
+                print "yes"
+                for i in range(len(results1)):
+                    link = '/stockProfile?stockname='+ results1[i].tickerName
+                    resultsToSend[results1[i].fullName] = link
+            else:
+                i=0
+
+                # if len(results)>=len(results1) or len(results)==1:
+                #
+                #     while(i < len(results)):
+                #         if len(results)==1:
+                #             print i
+                #             if results[0].tickerName==results1[i].tickerName:
+                #                 print "success"
+                #                 link = '/stockProfile?stockname='+ results[0].tickerName
+                #                 resultsToSend[results[0].fullName] = link
+                #                 break
+                #             else:
+                #                 print "yo"
+                #                 i=i+1
+                #                 continue
+                #         else:
+                #             for x in range(len(results1)):
+                #
+                #                 if results[i].tickerName==results1[x].tickerName:
+                #                     link = '/stockProfile?stockname='+ results[i].tickerName
+                #                     resultsToSend[results[i].fullName] = link
+                #
+                #         i+=1
+                # else:
+                #     while(i < len(results1)):
+                #    #for i in range(len(results)):
+                #        #print "results of i",results[]
+                #        print "results1 of i",results1[i]
+                #        #print len(results)
+                #
+                #        for x in range(len(results1)):
+                #            if results[i].tickerName==results1[i].tickerName:
+                #                link = '/stockProfile?stockname='+ results[i].tickerName
+                #                resultsToSend[results[i].fullName] = link
+                #
+                #        i+=1
+
+                Search={}
+                for i in range(len(results)):
+                    Search[i]=results[i]
+                print Search
+                for j in range(len(results1)):
+                    print results1[j]
+
+                    if results1[j] in Search.values():
+                        if len(results)==1:
+                             print "success"
+                             link = '/stockProfile?stockname='+ results1[j].tickerName
+                             return redirect(link)
+                        else:
+                             print "success"
+                             link = '/stockProfile?stockname='+ results1[j].tickerName
+                             resultsToSend[results1[j].fullName] = link
+
+        else:
+            if len(results) == 1:
+                link = '/stockProfile?stockname='+ results[0].tickerName
+                return redirect(link)
+
+            for i in range(0, len(results)):
+                link = '/stockProfile?stockname='+ results[i].tickerName
+
+                resultsToSend[results[i].fullName] = link
+        return render(request, 'searchresults.html', {'searchres': resultsToSend,'categ':qu})
+
+def getCompanyDomain(companyName):
+    URL = 'https://api.fullcontact.com/v2/company/search.json?apiKey=5556c95482238100&companyName=' + companyName
+    try:
+        # sending get request and saving the response as response object
+        response = requests.get(url=URL)
+        data = response.json()
+        for i in data:
+            return str(i['lookupDomain'])
+            break;
+    except Exception as e:
+        print e
+        return 'Completed'
 
 def insertData(request):
     k={
@@ -176,26 +291,43 @@ def insertData(request):
         'ORCL': 'Oracle Corporation',
         'GS': 'Goldman Sachs Group Inc',
         'JPM': 'JPMorgan Chase & Co.',
+        'AAPL':'Apple Inc',
     }
     #code to companies to the stockprofile model
-    '''
     for i in k.keys():
         s = StockProfileModel(tickerName=i, fullName=k[i])
-        s.save()
-    '''
-    #code to add stocks
-    tickName = 'MSFT'
-    respons = requests.get('https://www.alphavantage.co/query?function=TIME_SERIES_DAILY&symbol='+tickName+'&apikey=2NWT4MKPZ594L2GF')
-    ll = json.loads(respons.text)
-    ll = ll['Time Series (Daily)']
-    for i in ll.keys():
-        s = i
-        s = s + ' 00:00:00'
+        s_ins = StockProfileModel.objects.get(tickerName=i)
+        domain = getCompanyDomain(s_ins.fullName)
+        print domain
 
-        datetime_object = datetime.strptime(s, '%Y-%m-%d %H:%M:%S')
-        s_ins = StockProfileModel.objects.get(tickerName=tickName)
-        s = StockStatusModel(whichStock=s_ins, date=datetime_object, highPrice=ll[i]['2. high'], lowPrice = ll[i]['3. low'], currentPrice=ll[i]['4. close'])
-        s.save()
+        URL = 'https://api.fullcontact.com/v2/company/lookup.json?apiKey=5556c95482238100&domain=' + domain
+        try:
+            # sending get request and saving the response as response object
+            response = requests.get(url=URL)
+            data = response.json()
+            s_ins.overview = data['organization']['overview']
+            s_ins.founded = data['organization']['founded']
+
+        except:
+            s_ins.overview = "couldn't Fetch"
+            s_ins.founded = "couldn't fetch"
+
+        s_ins.save()
+
+    return HttpResponse('done')
+    #code to add stocks
+    # tickName = 'AAPL'
+    # respons = requests.get('https://www.alphavantage.co/query?function=TIME_SERIES_DAILY&symbol='+tickName+'&apikey=2NWT4MKPZ594L2GF')
+    # ll = json.loads(respons.text)
+    # ll = ll['Time Series (Daily)']
+    # for i in ll.keys():
+    #     s = i
+    #     s = s + ' 00:00:00'
+    #
+    #     datetime_object = datetime.strptime(s, '%Y-%m-%d %H:%M:%S')
+    #     s_ins = StockProfileModel.objects.get(tickerName=tickName)
+    #     s = StockStatusModel(whichStock=s_ins, date=datetime_object, highPrice=ll[i]['2. high'], lowPrice = ll[i]['3. low'], currentPrice=ll[i]['4. close'])
+    #     s.save()
 
 @login_required
 @duo_auth.duo_auth_required
@@ -219,4 +351,65 @@ def stockProfile(request):
         finalData[data.date.strftime('%Y/%m/%d')] = tempMap
     finalData = json.dumps(finalData)
     #print finalData
-    return render(request, 'StockProfile.html',{'stockName': s_ins.fullName,'tickerName':s_ins.tickerName, 'finalData': finalData})
+    return render(request, 'StockProfile.html',{'stockName': s_ins.fullName,'tickerName':s_ins.tickerName,'overview':s_ins.overview,'founded':s_ins.founded, 'finalData': finalData})
+
+@login_required
+@duo_auth.duo_auth_required
+def forumPage(request):
+
+    #Getting the post details  from the post request
+    postTitle =  request.POST.get('posttitle')
+    postBody =  request.POST.get('postbody')
+    if postBody != None:
+        #Saving the post
+        post = models.ForumModel()
+        post.user = request.user
+        post.messageTitle = postTitle
+        post.messageBody = postBody
+        post.datePosted = datetime.now()
+        post.save()
+
+    #Retreiving all the posts
+    posts = models.ForumModel.objects.all().order_by('-datePosted')
+    userPosts = []
+    for post in posts:
+        tempPost = {}
+        tempPost['username'] = post.user.username
+        tempPost['messageTitle'] = post.messageTitle
+        tempPost['messageBody'] = post.messageBody
+        tempPost['date'] = post.datePosted.strftime("%b %d, %Y, %HH: %Mm")
+        userPosts.append(tempPost)
+
+    return render(request,'forum.html',{'posts':userPosts})
+
+
+@login_required
+@duo_auth.duo_auth_required
+def chat_room(request, label):
+    # If the room with the given label doesn't exist, automatically create it
+    # upon first visit (a la etherpad).
+    room, created = Room.objects.get_or_create(label=label)
+
+    # We want to show the last 50 messages, ordered most-recent-last
+    messages = reversed(room.messages.order_by('-timestamp')[:50])
+
+    return render(request, "room.html", {
+        'room': room,
+        'messages': messages,
+    })
+
+@login_required
+@duo_auth.duo_auth_required
+def new_room(request):
+    """
+    Randomly create a new room, and redirect to it.
+    """
+    new_room = None
+    while not new_room:
+        with transaction.atomic():
+            #label = haikunator.haikunate()
+            label = ''.join(random.choice(string.ascii_uppercase + string.digits) for _ in range(8))
+            if Room.objects.filter(label=label).exists():
+                continue
+            new_room = Room.objects.create(label=label)
+    return redirect(chat_room, label=label)

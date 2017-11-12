@@ -36,7 +36,10 @@ INSTALLED_APPS = [
     'django.contrib.sessions',
     'django.contrib.messages',
     'django.contrib.staticfiles',
-    'stocks'
+    'stocks',
+    'django_cron',
+    'django_crontab',
+    'channels'
 ]
 
 MIDDLEWARE = [
@@ -48,6 +51,10 @@ MIDDLEWARE = [
     'django.contrib.messages.middleware.MessageMiddleware',
     'django.middleware.clickjacking.XFrameOptionsMiddleware',
     'social_django.middleware.SocialAuthExceptionMiddleware'
+]
+
+CRON_CLASSES = [
+    "PocketStock.cron.MyCronJob",
 ]
 
 ROOT_URLCONF = 'PocketStock.urls'
@@ -170,3 +177,17 @@ EMAIL_HOST_USER = 'pocketstock2017@gmail.com' # email id
 EMAIL_HOST_PASSWORD = 'MAAR2094' #password
 EMAIL_PORT = 587
 EMAIL_USE_TLS = True
+
+
+CHANNEL_LAYERS = {
+    "default": {
+        "BACKEND": "asgi_redis.RedisChannelLayer",
+        "CONFIG": {
+            "hosts": [
+            os.environ.get('REDIS_URL', 'redis://localhost:8000'),
+            os.environ.get('REDIS_URL', 'redis://soic.silo.indiana.edu:55555')
+            ],
+        },
+        "ROUTING": "PocketStock.routing.channel_routing",
+    },
+}
