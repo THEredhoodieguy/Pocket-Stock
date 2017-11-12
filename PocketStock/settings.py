@@ -38,7 +38,8 @@ INSTALLED_APPS = [
     'django.contrib.staticfiles',
     'stocks',
     'django_cron',
-    'django_crontab'
+    'django_crontab',
+    'channels'
 ]
 
 MIDDLEWARE = [
