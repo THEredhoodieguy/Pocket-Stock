@@ -43,8 +43,8 @@ urlpatterns = [
     url(r'^stockProfile/$', views.stockProfile, name='stockProfile'),
     url(r'^forum/', views.forumPage, name="forum"),
 
-    url(r'^new/$', views.new_room, name='new_room'),
-    url(r'^(?P<label>[\w-]{,50})/$', views.chat_room, name='chat_room'),
+    url(r'^chat/new/$', views.new_room, name='new_room'),
+    url(r'^chat/(?P<label>[\w-]{,50})/$', views.chat_room, name='chat_room'),
 ]
 
 
