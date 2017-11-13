@@ -37,67 +37,7 @@ def home(request):
 @login_required
 @duo_auth.duo_auth_required
 def registered_home(request):
-
-    #get all transactions made by the current user
-    all_entries = TransactionModel.objects.filter(user=request.user)
-
-    #we need to pass the user a series of associated objects with the following characteristics
-    #quantity, percent, currentPrice, companyName, valuation
-
-    output_list = []
-
-    companies = []
-
-    #iterate through to get all companies the user has stocks in
-    for i in all_entries:
-        if i.whichStock not in companies:
-            print i.whichStock.tickerName
-            companies.append(i.whichStock)
-
-    company_statuses = {}
-    #get the most recent status of the companies that the user has stock in
-    # for i in companies:
-    #     company_statuses[i] = StockStatusModel.objects.filter(whichStock=i).order_by('date')[0].currentPrice
-
-    #Company status object has company name
-    #Making the API call to get the real time data
-    APIKEY = '2NWT4MKPZ594L2GF'
-    for i in companies:
-        companyShortName = i.tickerName
-        function = 'TIME_SERIES_INTRADAY'
-        # api-endpoint
-        URL = "https://www.alphavantage.co/query?function=" + function + "&symbol=" + companyShortName + "&interval=1min&outputsize=compact&apikey=" + APIKEY
-        data = None
-        try:
-            # sending get request and saving the response as response object
-            response = requests.get(url=URL)
-            if response.headers['Via'] == '1.1 vegur':
-                #print 'Status OK'
-                # extracting data in json format
-                data = response.json()
-                lastRefreshed = data['Meta Data']['3. Last Refreshed']
-                company_statuses[i] = decimal.Decimal(data['Time Series (1min)'][lastRefreshed]['4. close'])
-            else:
-                print "Api didn't respond"
-        except:
-            company_statuses[i] = decimal.Decimal('0')
-
-    #Associate all related info
-    for i in all_entries:
-        obj = {}
-        obj['qty'] = i.numberPurchased
-        obj['percent'] = round((company_statuses[i.whichStock] - (i.amountSpent / i.numberPurchased)) / (i.amountSpent / i.numberPurchased) * 100, 2)
-        obj['currentPrice'] = company_statuses[i.whichStock]
-        obj['fullname'] = i.whichStock.fullName
-        link = '/stockProfile?stockname=' + i.whichStock.tickerName
-        obj['link'] = link
-        obj['valuation'] = i.numberPurchased * company_statuses[i.whichStock]
-        output_list.append(obj)
-
-    return render(request, 'dashboard.html', {
-        'transactions': output_list,
-        })
-
+    return render(request,'dashboard.html')
 
 @login_required
 @duo_auth.duo_auth_required
@@ -201,43 +141,6 @@ def searchResults(request):
                     resultsToSend[results1[i].fullName] = link
             else:
                 i=0
-
-                # if len(results)>=len(results1) or len(results)==1:
-                #
-                #     while(i < len(results)):
-                #         if len(results)==1:
-                #             print i
-                #             if results[0].tickerName==results1[i].tickerName:
-                #                 print "success"
-                #                 link = '/stockProfile?stockname='+ results[0].tickerName
-                #                 resultsToSend[results[0].fullName] = link
-                #                 break
-                #             else:
-                #                 print "yo"
-                #                 i=i+1
-                #                 continue
-                #         else:
-                #             for x in range(len(results1)):
-                #
-                #                 if results[i].tickerName==results1[x].tickerName:
-                #                     link = '/stockProfile?stockname='+ results[i].tickerName
-                #                     resultsToSend[results[i].fullName] = link
-                #
-                #         i+=1
-                # else:
-                #     while(i < len(results1)):
-                #    #for i in range(len(results)):
-                #        #print "results of i",results[]
-                #        print "results1 of i",results1[i]
-                #        #print len(results)
-                #
-                #        for x in range(len(results1)):
-                #            if results[i].tickerName==results1[i].tickerName:
-                #                link = '/stockProfile?stockname='+ results[i].tickerName
-                #                resultsToSend[results[i].fullName] = link
-                #
-                #        i+=1
-
                 Search={}
                 for i in range(len(results)):
                     Search[i]=results[i]
@@ -265,6 +168,69 @@ def searchResults(request):
 
                 resultsToSend[results[i].fullName] = link
         return render(request, 'searchresults.html', {'searchres': resultsToSend,'categ':qu})
+
+def getDashBoardData(request):
+    # get all transactions made by the current user
+    all_entries = TransactionModel.objects.filter(user=request.user)
+
+    # we need to pass the user a series of associated objects with the following characteristics
+    # quantity, percent, currentPrice, companyName, valuation
+
+    output_list = {}
+
+    companies = []
+
+    # iterate through to get all companies the user has stocks in
+    for i in all_entries:
+        if i.whichStock not in companies:
+            print i.whichStock.tickerName
+            companies.append(i.whichStock)
+
+    company_statuses = {}
+    # get the most recent status of the companies that the user has stock in
+    # for i in companies:
+    #     company_statuses[i] = StockStatusModel.objects.filter(whichStock=i).order_by('date')[0].currentPrice
+
+    # Company status object has company name
+    # Making the API call to get the real time data
+    APIKEY = '2NWT4MKPZ594L2GF'
+    for i in companies:
+        companyShortName = i.tickerName
+        function = 'TIME_SERIES_INTRADAY'
+        # api-endpoint
+        URL = "https://www.alphavantage.co/query?function=" + function + "&symbol=" + companyShortName + "&interval=1min&outputsize=compact&apikey=" + APIKEY
+        data = None
+        try:
+            # sending get request and saving the response as response object
+            response = requests.get(url=URL)
+            if response.headers['Via'] == '1.1 vegur':
+                # print 'Status OK'
+                # extracting data in json format
+                data = response.json()
+                lastRefreshed = data['Meta Data']['3. Last Refreshed']
+                company_statuses[i] = decimal.Decimal(data['Time Series (1min)'][lastRefreshed]['4. close'])
+            else:
+                print "Api didn't respond"
+        except:
+            company_statuses[i] = decimal.Decimal('0')
+
+    row = 0;
+    # Associate all related info
+    for i in all_entries:
+        row = row + 1
+        obj = {}
+        obj['qty'] = i.numberPurchased
+        obj['percent'] = str(round((company_statuses[i.whichStock] - (i.amountSpent / i.numberPurchased)) / (
+            i.amountSpent / i.numberPurchased) * 100, 2))
+        obj['currentPrice'] = str(company_statuses[i.whichStock])
+        obj['fullname'] = i.whichStock.fullName
+        link = '/stockProfile?stockname=' + i.whichStock.tickerName
+        obj['link'] = link
+        obj['valuation'] = str(i.numberPurchased * company_statuses[i.whichStock])
+        output_list[row] = obj
+    print output_list
+
+    return HttpResponse(json.dumps(output_list) ,content_type="application/json");
 
 def getCompanyDomain(companyName):
     URL = 'https://api.fullcontact.com/v2/company/search.json?apiKey=5556c95482238100&companyName=' + companyName
@@ -328,6 +294,7 @@ def insertData(request):
     #     s_ins = StockProfileModel.objects.get(tickerName=tickName)
     #     s = StockStatusModel(whichStock=s_ins, date=datetime_object, highPrice=ll[i]['2. high'], lowPrice = ll[i]['3. low'], currentPrice=ll[i]['4. close'])
     #     s.save()
+
 
 @login_required
 @duo_auth.duo_auth_required

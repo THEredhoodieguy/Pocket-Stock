@@ -27,9 +27,9 @@
       <div class="container">
         <strong><a class="navbar-brand" href="/">Pocket Stock</a></strong>
         <div class="col-sm-2 col-md-2">
-
     </div>
-        <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarResponsive" aria-controls="navbarResponsive" aria-expanded="false" aria-label="Toggle navigation">
+
+          <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarResponsive" aria-controls="navbarResponsive" aria-expanded="false" aria-label="Toggle navigation">
           <span class="navbar-toggler-icon"></span>
         </button>
 
@@ -62,7 +62,7 @@
                 <!-- <span class="sr-only">(current)</span> -->
               </a>
             </li>
-            
+
             <li class="nav-item">
               <a class="nav-link" href="#">Chat</a>
             </li>
@@ -90,19 +90,10 @@
 
     <!-- Page Content -->
     <div class="container">
-
       <h1 class="text-center default-head">Welcome {{ user.get_username }}!</h1>
-
-      <!-- <h1>{{ transactions }}</h1>
-
-      {% for obj in transactions %}
-        <h1>{{ obj.valuation }}</h1> -->
-        <!-- <h1>Stuff</h1> -->
-      <!-- {% endfor %} -->
-
-      <div class="row card-container">
+        <div class="row card-container">
         <!-- /.col-lg-3 -->
-        <div class="col-lg-12">
+          <div class="col-lg-12">
            <h4>Your Investments:</h4>
 
           <div class="row stock-content">
@@ -118,36 +109,13 @@
                 </div>
               </div>
             </div>
-
             <!-- Procedurally generated stock cards -->
-
-            {% for obj in transactions %}
-              <div class="col-lg-4 col-md-6 mb-4">
-                <div class="card h-100">
-                  <a href={{ obj.link }}><div class="number-size-panel"> <span class="card-text1">{{ obj.percent }}%</span></div></a>
-                  <div class="card-body">
-                    <h4 class="card-title">
-                      <a href={{ obj.link }}>{{ obj.fullname }}</a>
-                    </h4>
-                    <h5>Current Asset Value: ${{ obj.valuation }}</h5>
-                    <p class="card-text"></p>
-                  </div>
-                  <div class="card-footer">
-                    <!-- <small class="text-muted">&#9733; &#9733; &#9733; &#9733; &#9734;</small> -->
-                    Quantity Purchased: {{ obj.qty }}
-                  </div>
-                </div>
-              </div>
-            {% endfor %}
-
           </div>
-          <!-- /.row -->
-
-        </div>
-        <!-- /.col-lg-9 -->
-
-      </div>
       <!-- /.row -->
+        </div>
+      </div>
+
+      <div class="modal"><!-- Place at bottom of page --></div>
 
     </div>
     <!-- /.container -->
@@ -176,18 +144,48 @@
     <p class="copyright text-muted small">Copyright &copy; Pocket Stock 2017. All Rights Reserved</p>
   </div>
 </footer>
+
 {% endblock %}
 
     <!-- Bootstrap core JavaScript -->
 
   {% load staticfiles %}
-
     <script src="https://code.jquery.com/jquery-1.12.4.js"></script>
     <script src="https://code.jquery.com/ui/1.12.1/jquery-ui.js"></script>
     <script src="{% static 'js/search.js' %}"></script>
     <script src="https://cdnjs.cloudflare.com/ajax/libs/twitter-bootstrap/4.0.0-beta/js/bootstrap.min.js"></script>
     <script src="https://cdnjs.cloudflare.com/ajax/libs/Chart.js/2.7.1/Chart.bundle.min.js"></script>
-  {% block scripts%}
+    <script>
+      $body = $("body");
+
+      $( document ).ready(function() {
+          $body.addClass("loading");
+                        $.ajax({
+                url : "/getDashBoardData/", // the endpoint
+                type : "POST", // http method
+                data: {'csrfmiddlewaretoken': '{{ csrf_token }}'},
+                // handle a successful response
+                success : function(result) {
+                    console.log("success"); // another sanity check
+                     var htmlCode = '<div class="col-lg-4 col-md-6 mb-4"><div class="card h-100"><a href="#"><div class="number-size-panel"></div></a><div class="card-body"><a href="{% url 'create_transaction' %}"><div class="circle"></div></a></div></div></div>';
+                    $.each(result, function(key,value) {
+                        htmlCode = htmlCode + '<div class="col-lg-4 col-md-6 mb-4"><div class="card h-100"><a href="' + value["link"]+'"><div class="number-size-panel"> <span class="card-text1">'+ value["percent"] + '%</span></div></a><div class="card-body"><h4 class="card-title"><a href=' + value["link"] + '>'+value["fullname"]+'</a></h4><h5>Current Asset Value: ' + value["valuation"]+'</h5><p class="card-text"></p></div><div class="card-footer">Quantity Purchased: '+value["qty"]+'</div></div></div>';
+                    });
+                    console.log(htmlCode);
+                    $( ".row" ).html(htmlCode);
+                    $body.removeClass("loading");
+
+
+                },
+              // handle a non-successful response
+              error : function(xhr,errmsg,err) {
+                  console.log("error"); // provide a bit more info about the error to the console
+              }
+      });
+      });
+    </script>
+
+    {% block scripts%}
   {% endblock %}
   </body>
 
