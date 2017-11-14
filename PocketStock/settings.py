@@ -12,6 +12,10 @@ https://docs.djangoproject.com/en/1.11/ref/settings/
 
 import os
 
+import dj_database_url
+db_from_env = dj_database_url.config(conn_max_age=500)
+DATABASES['default'].update(db_from_env)
+
 # Build paths inside the project like this: os.path.join(BASE_DIR, ...)
 BASE_DIR = os.path.dirname(os.path.dirname(os.path.abspath(__file__)))
 
@@ -146,10 +150,20 @@ DUO_HOST = 'api-ccfb0134.duosecurity.com'
 # Static files (CSS, JavaScript, Images)
 # https://docs.djangoproject.com/en/1.11/howto/static-files/
 
+#Heroku setup
+PROJECT_ROOT = os.path.dirname(os.path.abspath(__file__))
+
+STATIC_ROOT = os.path.join(PROJECT_ROOT, 'staticfiles')
 STATIC_URL = '/static/'
+
 STATICFILES_DIRS = [
     os.path.join(BASE_DIR, 'stocks/static/'),
 ]
+
+# Simplified static file serving.
+# https://warehouse.python.org/project/whitenoise/
+
+STATICFILES_STORAGE = 'whitenoise.django.GzipManifestStaticFilesStorage'
 
 # Redirect to home URL after login (Default redirects to /accounts/profile/)
 LOGIN_REDIRECT_URL = '/dashboard'
@@ -185,7 +199,7 @@ CHANNEL_LAYERS = {
         "CONFIG": {
             "hosts": [
             os.environ.get('REDIS_URL', 'redis://localhost:8000'),
-            os.environ.get('REDIS_URL', 'redis://soic.silo.indiana.edu:55555')
+            #os.environ.get('REDIS_URL', 'redis://soic.silo.indiana.edu:55555')
             ],
         },
         "ROUTING": "PocketStock.routing.channel_routing",
