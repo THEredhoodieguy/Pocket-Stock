@@ -1,1 +1,1 @@
-web: gunicorn stockpocket.wsgi
+web: gunicorn PocketStock.wsgi
