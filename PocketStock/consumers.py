@@ -14,10 +14,7 @@ def ws_connect(message):
     # and if the Room exists. Otherwise, bails (meaning this is a some othersort
     # of websocket). So, this is effectively a version of _get_object_or_404.
     try:
-        log.debug("\n")
-        log.debug("message from ws_connect:")
-        log.debug(message)
-        log.debug("\n")
+        print message
         prefix, label = message['path'].decode('ascii').strip('/').split('/')
         if prefix != 'chat':
             log.debug('invalid ws path=%s', message['path'])
