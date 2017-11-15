@@ -197,11 +197,8 @@ CHANNEL_LAYERS = {
         "BACKEND": "asgi_redis.RedisChannelLayer",
         "CONFIG": {
             "hosts": [
-<<<<<<< HEAD
             os.environ.get('REDIS_URL', 'redis://localhost:8000'),
-=======
             #os.environ.get('REDIS_URL', 'redis://localhost:8000'),
->>>>>>> e106d7f5900378f8d0c59042c108fbf72b15bf36
             #os.environ.get('REDIS_URL', 'redis://soic.silo.indiana.edu:55555')
             ],
         },
