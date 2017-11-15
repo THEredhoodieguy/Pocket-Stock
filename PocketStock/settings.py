@@ -31,7 +31,7 @@ SECRET_KEY = 'fz4r#k#skpa#9p+rs8p-v=87_9*ga&qnveh$2u@q+u00o9&6oc'
 # SECURITY WARNING: don't run with debug turned on in production!
 DEBUG = True
 
-ALLOWED_HOSTS = ['localhost','127.0.0.1','silo.soic.indiana.edu']
+ALLOWED_HOSTS = ['localhost','127.0.0.1','silo.soic.indiana.edu','pure-bayou-28363.herokuapp.com']
 
 # Application definition
 
