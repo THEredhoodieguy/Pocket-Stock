@@ -45,6 +45,7 @@ INSTALLED_APPS = [
     'stocks',
     'django_cron',
     'django_crontab',
+    'channels'
 ]
 
 MIDDLEWARE = [
