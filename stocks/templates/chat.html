@@ -35,6 +35,11 @@
 {% endblock content %}
 
 {% block scripts %}
+    <script src="https://code.jquery.com/jquery-1.12.4.js"></script>
+    <script src="https://code.jquery.com/ui/1.12.1/jquery-ui.js"></script>
+    <script src="{% static 'js/search.js' %}"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/twitter-bootstrap/4.0.0-beta/js/bootstrap.min.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/Chart.js/2.7.1/Chart.bundle.min.js"></script>
   <script type="text/javascript" src='{% static "js/reconnecting-websocket.min.js" %}'></script>
   <script type="text/javascript" src='{% static "js/chat.js" %}'></script>
 {% endblock scripts %}
