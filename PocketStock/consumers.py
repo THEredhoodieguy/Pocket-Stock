@@ -73,7 +73,7 @@ def ws_receive(message):
         log.debug('chat message room=%s handle=%s message=%s', 
             room.label, data['handle'], data['message'])
         m = room.messages.create(**data)
-
+        print m
         # See above for the note about Group
         Group('chat-'+label, channel_layer=message.channel_layer).send({'text': json.dumps(m.as_dict())})
 
