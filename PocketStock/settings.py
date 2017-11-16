@@ -11,8 +11,20 @@ https://docs.djangoproject.com/en/1.11/ref/settings/
 """
 
 import os
-
+import urlparse
 import dj_database_url
+
+redis_url = urlparse.urlparse(os.environ.get('REDIS_URL'))
+CACHES = {
+    "default": {
+         "BACKEND": "redis_cache.RedisCache",
+         "LOCATION": "{0}:{1}".format(redis_url.hostname, redis_url.port),
+         "OPTIONS": {
+             "PASSWORD": redis_url.password,
+             "DB": 0,
+         }
+    }
+}
 
 db_from_env = dj_database_url.config(conn_max_age=500)
 #DATABASES['default'].update(db_from_env)
