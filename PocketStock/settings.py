@@ -12,6 +12,12 @@ https://docs.djangoproject.com/en/1.11/ref/settings/
 
 import os
 
+import dj_database_url
+
+db_from_env = dj_database_url.config(conn_max_age=500)
+#DATABASES['default'].update(db_from_env)
+DATABASES = { 'default' : dj_database_url.config() }
+
 # Build paths inside the project like this: os.path.join(BASE_DIR, ...)
 BASE_DIR = os.path.dirname(os.path.dirname(os.path.abspath(__file__)))
 
@@ -25,7 +31,7 @@ SECRET_KEY = 'fz4r#k#skpa#9p+rs8p-v=87_9*ga&qnveh$2u@q+u00o9&6oc'
 # SECURITY WARNING: don't run with debug turned on in production!
 DEBUG = True
 
-ALLOWED_HOSTS = ['localhost','127.0.0.1','silo.soic.indiana.edu']
+ALLOWED_HOSTS = ['localhost','127.0.0.1','silo.soic.indiana.edu','pure-bayou-28363.herokuapp.com']
 
 # Application definition
 
@@ -39,6 +45,7 @@ INSTALLED_APPS = [
     'stocks',
     'django_cron',
     'django_crontab',
+    'channels'
 ]
 
 MIDDLEWARE = [
@@ -145,10 +152,20 @@ DUO_HOST = 'api-ccfb0134.duosecurity.com'
 # Static files (CSS, JavaScript, Images)
 # https://docs.djangoproject.com/en/1.11/howto/static-files/
 
+#Heroku setup
+PROJECT_ROOT = os.path.dirname(os.path.abspath(__file__))
+
+STATIC_ROOT = os.path.join(PROJECT_ROOT, 'staticfiles')
 STATIC_URL = '/static/'
+
 STATICFILES_DIRS = [
     os.path.join(BASE_DIR, 'stocks/static/'),
 ]
+
+# Simplified static file serving.
+# https://warehouse.python.org/project/whitenoise/
+
+STATICFILES_STORAGE = 'whitenoise.django.GzipManifestStaticFilesStorage'
 
 # Redirect to home URL after login (Default redirects to /accounts/profile/)
 LOGIN_REDIRECT_URL = '/dashboard'
@@ -183,6 +200,7 @@ CHANNEL_LAYERS = {
         "BACKEND": "asgi_redis.RedisChannelLayer",
         "CONFIG": {
             "hosts": [
+            os.environ.get('REDIS_URL', 'redis://localhost:6379'),
             #os.environ.get('REDIS_URL', 'redis://localhost:8000'),
             #os.environ.get('REDIS_URL', 'redis://soic.silo.indiana.edu:55555')
             ],
