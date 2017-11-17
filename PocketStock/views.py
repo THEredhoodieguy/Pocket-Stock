@@ -252,9 +252,10 @@ def getDashBoardData(request):
             else:
                 print "Api didn't respond"
                 company_statuses[i] = decimal.Decimal('0')
+                return HttpResponse('failure')
         except:
             company_statuses[i] = decimal.Decimal('0')
-
+            return HttpResponse('failure')
     row = 0;
     # Associate all related info
     for i in all_entries:
