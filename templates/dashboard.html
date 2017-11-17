@@ -187,7 +187,7 @@
                 // handle a successful response
                 success : function(result) {
                     console.log("success"); // another sanity check
-                     var htmlCode = '<h4>Your Investments:</h4><div class="col-lg-4 col-md-6 mb-4"><div class="card h-100"><a href="#"><div class="number-size-panel"></div></a><div class="card-body"><a href="{% url 'create_transaction' %}"><div class="circle"></div></a></div></div></div>';
+                     var htmlCode = '<div class="col-lg-4 col-md-6 mb-4"><div class="card h-100"><a href="#"><div class="number-size-panel"></div></a><div class="card-body"><a href="{% url 'create_transaction' %}"><div class="circle"></div></a></div></div></div>';
                     $.each(result, function(key,value) {
                         htmlCode = htmlCode + '<div class="col-lg-4 col-md-6 mb-4"><div class="card h-100"><a href="' + value["link"]+'"><div class="number-size-panel"> <span class="card-text1">'+ value["percent"] + '%</span></div></a><div class="card-body"><h4 class="card-title"><a href=' + value["link"] + '>'+value["fullname"]+'</a></h4><h5>Current Asset Value: ' + value["valuation"]+'</h5><p class="card-text"></p></div><div class="card-footer">Quantity Purchased: '+value["qty"]+'</div></div></div>';
                     });
