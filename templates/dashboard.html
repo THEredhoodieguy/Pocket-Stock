@@ -178,23 +178,23 @@
     <script src="https://cdnjs.cloudflare.com/ajax/libs/Chart.js/2.7.1/Chart.bundle.min.js"></script>
     <script>
       $body = $("body");
-        $( function() {
-    var availableTags=[];
-   $.ajax({url: "/getCompanies", success: function(result){
-            console.log(result);
-
-            $.each(result, function(key,value) {
-                availableTags.push(value);
-            });
-        }});
-
-    $( "#tags" ).autocomplete({
-      source: availableTags
-    });
-  } );
 
       $( document ).ready(function() {
-                        $.ajax({
+                 $( function() {
+                        var availableTags=[];
+                       $.ajax({url: "/getCompanies", success: function(result){
+                                console.log(result);
+
+                                $.each(result, function(key,value) {
+                                    availableTags.push(value);
+                                });
+                            }});
+
+                        $( "#tags" ).autocomplete({
+                          source: availableTags
+                        });
+                 } );
+                $.ajax({
                 url : "/getDashBoardData/", // the endpoint
                 type : "POST", // http method
                 data: {'csrfmiddlewaretoken': '{{ csrf_token }}'},
