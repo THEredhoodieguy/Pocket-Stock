@@ -268,7 +268,6 @@ def getDashBoardData(request):
         obj['link'] = link
         obj['valuation'] = str(i.numberPurchased * company_statuses[i.whichStock])
         output_list[row] = obj
-    print output_list
 
     return HttpResponse(json.dumps(output_list) ,content_type="application/json");
 
