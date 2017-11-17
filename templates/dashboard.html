@@ -110,6 +110,25 @@
               </div>
             </div>
             <!-- Procedurally generated stock cards -->
+              {% for obj in transactions %}
+              <div class="col-lg-4 col-md-6 mb-4">
+                <div class="card h-100">
+                  <a href="#"><div class="number-size-panel"> <span class="card-text1">{{ obj.percent }}%</span></div></a>
+                  <div class="card-body">
+                    <h4 class="card-title">
+                      <a href={{ obj.link }}>{{ obj.fullname }}</a>
+                    </h4>
+                    <h5>Current Asset Value: ${{ obj.valuation }}</h5>
+                    <p class="card-text"></p>
+                  </div>
+                  <div class="card-footer">
+                    <!-- <small class="text-muted">&#9733; &#9733; &#9733; &#9733; &#9734;</small> -->
+                    Quantity Purchased: {{ obj.qty }}
+                  </div>
+                </div>
+              </div>
+            {% endfor %}
+
           </div>
       <!-- /.row -->
         </div>
@@ -161,7 +180,6 @@
       $body = $("body");
 
       $( document ).ready(function() {
-          $body.addClass("loading");
                         $.ajax({
                 url : "/getDashBoardData/", // the endpoint
                 type : "POST", // http method
@@ -175,7 +193,6 @@
                     });
                     console.log(htmlCode);
                     $( ".row" ).html(htmlCode);
-                    $body.removeClass("loading");
 
 
                 },
