@@ -251,6 +251,7 @@ def getDashBoardData(request):
                 company_statuses[i] = decimal.Decimal(data['Time Series (1min)'][lastRefreshed]['4. close'])
             else:
                 print "Api didn't respond"
+                company_statuses[i] = decimal.Decimal('0')
         except:
             company_statuses[i] = decimal.Decimal('0')
 
@@ -269,7 +270,7 @@ def getDashBoardData(request):
         obj['valuation'] = str(i.numberPurchased * company_statuses[i.whichStock])
         output_list[row] = obj
 
-    return HttpResponse(json.dumps(output_list) ,content_type="application/json");
+    return HttpResponse(json.dumps(output_list), content_type="application/json");
 
 def getCompanyDomain(companyName):
     URL = 'https://api.fullcontact.com/v2/company/search.json?apiKey=5556c95482238100&companyName=' + companyName
