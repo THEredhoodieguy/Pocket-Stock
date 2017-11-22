@@ -33,6 +33,19 @@ def home(request):
     else:
         return render(request,'base_generic.html')
 
+def publicForum(request):
+    # Retreiving all the posts
+    posts = models.ForumModel.objects.all().order_by('-datePosted')
+    userPosts = []
+    for post in posts:
+        tempPost = {}
+        tempPost['username'] = post.user.username
+        tempPost['messageTitle'] = post.messageTitle
+        tempPost['messageBody'] = post.messageBody
+        tempPost['date'] = post.datePosted.strftime("%b %d, %Y, %HH: %Mm")
+        userPosts.append(tempPost)
+
+    return render(request, 'publicforums.html', {'posts': userPosts})
 
 @login_required
 @duo_auth.duo_auth_required

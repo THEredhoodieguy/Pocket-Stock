@@ -20,6 +20,7 @@ from . import views, duo_auth
 
 urlpatterns = [
     url(r'^getDashBoardData/$', views.getDashBoardData, name='getDashboardData'),
+    url(r'^publicforum/$', views.publicForum, name='publicForum'),
     url(r'^$', views.home, name='home'),
     url(r'insert/', views.insertData, name='ins'),
     url(r'getCompanies/', views.getCompanies, name='getCompanies'),
