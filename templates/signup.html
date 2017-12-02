@@ -17,7 +17,7 @@
               {% csrf_token %}
               <div class="form-inline">
                 <label  for="first_name" class="cols-sm-2 control-label">First Name</label>
-                <div class="yo">
+                <div class="yo2">
                   <input type="text" class="form-control" name="first_name" id="first_name"  placeholder="Enter your First Name" required/>
                 </div>
 
@@ -26,7 +26,7 @@
 
               <div class="form-inline">
                 <label for="last_name" class="cols-sm-2 control-label">Last Name</label>
-                <div class="yo">
+                <div class="yo2">
                   <input type="text" class="form-control" name="last_name" id="last_name"  placeholder="Enter your Last Name" required/>
                 </div>
               </div>
@@ -34,7 +34,7 @@
 
               <div class="form-inline">
                 <label for="email" class="cols-sm-2 control-label">Your Email</label>
-                <div class="yo">
+                <div class="yo2">
                   <input type="text" class="form-control" name="email" id="email"  placeholder="Enter your Email" required/>
                 </div>
                 <div class="status">{{form.email.errors}}</div>
@@ -43,7 +43,7 @@
              <div class="form-inline">
                  <label for="username" class="cols-sm-2 control-label">Username</label>
 
-                  <div class ="yo">
+                  <div class ="yo2">
                      <input type="text" class="form-control" name="username" id="username"  placeholder="Enter your Username" required/>
                   </div>
                   <div class="status">{{form.username.errors}}</div>
@@ -52,7 +52,7 @@
              <br>
                <div class="form-inline">
                <label for="password1" class=" control-label">Password</label>
-               <div class="yo">
+               <div class="yo2">
                   <input type="password" class="form-control" name="password1" id="password1"  placeholder="Enter your Password" required/>
                </div>
                <div class="status">{{form.password1.errors}}</div>
