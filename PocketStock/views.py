@@ -91,6 +91,75 @@ def predict(request):
     print "A is",A
     return render(request, 'prediction.html',{'predictions': A,})
 
+def get_prediction(data_list):
+    #print data_list
+
+    data_list1=[]
+
+    for i in range(0,len(data_list)):
+        x1=float(data_list[i])
+
+        #print data_list[3:len(data_list[i])-1]
+        #data_list1.append(float(data_list[i][3:len1])
+        data_list1.append(x1)
+
+    #print data_list1
+
+    def short_predict(data_list1):
+
+
+        data_list1.reverse()
+
+        count22 = 0.0
+        count01 = 0.0
+        count10 = 0.0
+        percentage = 0.0
+        v=len(data_list1)-5
+
+
+        for i in range(v, len(data_list1) - 1):
+            #print data_list1[i]
+            percentage += float((data_list1[i + 1] - data_list1[i]) / data_list1[i])
+            if data_list1[i] > data_list1[i + 1]:
+                count10 += 1
+            elif data_list1[i] < data_list1[i + 1]:
+                count01 += 1
+            else:
+                count22 += 1
+        count10 = float(count10 / len(data_list1))
+        count01 = float(count01 / len(data_list1))
+        count22 = float(count22 / len(data_list1))
+
+        if count10 > count22 and count10 > count01:
+            return "Sell the Stock (Day Trading)"
+        elif count01 > count22 and count01 > count10:
+            return "Buy more of this Stock (Day Trading)"
+        elif count22 > count01 and count22 > count10:
+            return "Keep holding to the stock (Day Trading)"
+        else:
+            return "Keep holding to the stock (Day Trading)"
+
+
+
+
+    def long_predict(data_list1):
+
+
+        data_list1.reverse()
+
+        percentage = 0.0
+        for i in range(0, len(data_list1) - 1):
+            percentage += float((data_list1[i + 1] - data_list1[i]) / data_list1[i])
+
+
+        predict = (1 + percentage / 100) * data_list1[len(data_list1) - 1]
+        for i in range(0, 7):
+            predict = predict * (1 + percentage / 100)
+
+        return ('%.2f' % predict)
+
+    #return short_predict(data_list1)
+    return short_predict(data_list1),long_predict(data_list1)
 
 @login_required
 @duo_auth.duo_auth_required
