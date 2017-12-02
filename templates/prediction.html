@@ -61,3 +61,56 @@
              <h5>Todays Value : {{v.2}}</h5>
              <h5>Value after 7 days:{{v.1}}</h5>
            </div>
+            <div class="card-footer" style ="background-color: #76cc64">
+             <!-- <small class="text-muted">&#9733; &#9733; &#9733; &#9733; &#9734;</small> -->
+            {{v.0}}
+           </div>
+         </div>
+       </div>
+
+          {% endif %}
+
+
+
+
+            {% endfor %}
+            </div>
+
+
+          <!-- /.row -->
+
+        </div>
+        <!-- /.col-lg-9 -->
+
+      </div>
+      <!-- /.row -->
+
+    </div>
+    <!-- /.container -->
+{%endblock%}
+    <!-- Footer -->
+{% block footer %}
+<footer style="height: 100px; position:absolute; bottom:0;">
+  <div class="container">
+    <ul class="list-inline">
+      <li class="list-inline-item">
+        <a href="/">Home</a>
+      </li>
+      <li class="footer-menu-divider list-inline-item">&sdot;</li>
+      <li class="list-inline-item">
+        <a href="#about">About</a>
+      </li>
+      <li class="footer-menu-divider list-inline-item">&sdot;</li>
+      <li class="list-inline-item">
+        <a href="#services">Services</a>
+      </li>
+      <li class="footer-menu-divider list-inline-item">&sdot;</li>
+      <li class="list-inline-item">
+        <a href="#contact">Contact</a>
+      </li>
+    </ul>
+    <p class="copyright text-muted small">Copyright &copy; Pocket Stock 2017. All Rights Reserved</p>
+  </div>
+</footer>
+{% endblock %}
+
