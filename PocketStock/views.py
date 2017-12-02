@@ -49,6 +49,51 @@ def publicForum(request):
 
 @login_required
 @duo_auth.duo_auth_required
+def predict(request):
+    all_entries = TransactionModel.objects.filter(user=request.user)
+    companies1=[]
+    companies=[]
+
+    #iterate through to get all companies the user has stocks in
+    for i in all_entries:
+        if i.whichStock.tickerName not in companies1:
+            companies1.append(i.whichStock.tickerName)
+            #companies.append(i.whichStock.fullName)
+    print companies1
+    #print companies
+
+    B={}
+    A={}
+    #Changes
+    count=1
+    for i in companies1:
+        tickName=i
+
+        respons = requests.get('https://www.alphavantage.co/query?function=TIME_SERIES_DAILY&symbol='+tickName+'&apikey=2NWT4MKPZ594L2GF')
+        #print respons
+        ll = json.loads(respons.text)
+
+        ll = ll['Time Series (Daily)']
+        ll = OrderedDict(sorted(ll.items(), key=lambda t: t[0]))
+        #print ll
+
+        B[tickName]=[]
+
+        for x in ll:
+           #if count==1:
+               #print x
+           #B[tickName]['open'].append(ll[x]['1. open'])
+           B[tickName].append(ll[x]['4. close'])
+           today= '%.2f' % float(B[tickName][-1])
+
+        sell_stock,future_value= get_prediction(B[tickName])
+        A[tickName]=(sell_stock,future_value,today)
+    print "A is",A
+    return render(request, 'prediction.html',{'predictions': A,})
+
+
+@login_required
+@duo_auth.duo_auth_required
 def registered_home(request):
     all_entries = TransactionModel.objects.filter(user=request.user)
 

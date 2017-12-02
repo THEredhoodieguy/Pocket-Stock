@@ -41,6 +41,7 @@ urlpatterns = [
     url(r'^home/$', views.home, name='homepage'),
 
     url(r'^dashboard/$', views.registered_home, name='dashboard'),
+    url(r'^prediction/$', views.predict, name='prediction'),
     url(r'^create_transaction/$', views.create_transaction, name='create_transaction'),
     url(r'^stockProfile/$', views.stockProfile, name='stockProfile'),
     url(r'^forum/', views.forumPage, name="forum"),
