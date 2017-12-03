@@ -398,7 +398,7 @@ def getDashBoardData(request):
         obj['fullname'] = i.whichStock.fullName
         link = '/stockProfile?stockname=' + i.whichStock.tickerName
         obj['link'] = link
-        obj['valuation'] = str(i.numberPurchased * company_statuses[i.whichStock])
+        obj['valuation'] = str('%.2f' % (i.numberPurchased * company_statuses[i.whichStock]))
         output_list[row] = obj
 
     return HttpResponse(json.dumps(output_list), content_type="application/json");
