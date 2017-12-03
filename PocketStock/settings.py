@@ -200,12 +200,18 @@ SOCIAL_AUTH_LOGIN_REDIRECT_URL = '/settings/'
 SOCIAL_AUTH_RAISE_EXCEPTIONS = False
 
 
-EMAIL_HOST = 'smtp.gmail.com'
-EMAIL_HOST_USER = 'pocketstock2017@gmail.com' # email id
-EMAIL_HOST_PASSWORD = 'MAAR2094' #password
+# EMAIL_HOST = 'smtp.gmail.com'
+# EMAIL_HOST_USER = 'pocketstock2017@gmail.com' # email id
+# EMAIL_HOST_PASSWORD = 'MAAR2094' #password
+# EMAIL_PORT = 587
+# EMAIL_USE_TLS = True
+
+EMAIL_HOST = 'smtp.sendgrid.net'
+EMAIL_HOST_USER = 'pocketstock' # email id
+EMAIL_HOST_PASSWORD = 'M@ar2094' #password
 EMAIL_PORT = 587
 EMAIL_USE_TLS = True
-
+DEFAULT_FROM_EMAIL = 'support@pocketstock.com'
 
 CHANNEL_LAYERS = {
     "default": {
