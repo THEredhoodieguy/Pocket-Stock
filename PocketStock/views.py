@@ -72,23 +72,26 @@ def predict(request):
         respons = requests.get('https://www.alphavantage.co/query?function=TIME_SERIES_DAILY&symbol='+tickName+'&apikey=2NWT4MKPZ594L2GF')
         #print respons
         ll = json.loads(respons.text)
+        if len(ll) is not 1 :
 
-        ll = ll['Time Series (Daily)']
-        ll = OrderedDict(sorted(ll.items(), key=lambda t: t[0]))
-        #print ll
+            ll = ll['Time Series (Daily)']
+            ll = OrderedDict(sorted(ll.items(), key=lambda t: t[0]))
+            #print ll
 
-        B[tickName]=[]
+            B[tickName]=[]
 
-        for x in ll:
-           #if count==1:
-               #print x
-           #B[tickName]['open'].append(ll[x]['1. open'])
-           B[tickName].append(ll[x]['4. close'])
-           today= '%.2f' % float(B[tickName][-1])
+            for x in ll:
+               #if count==1:
+                   #print x
+               #B[tickName]['open'].append(ll[x]['1. open'])
+               B[tickName].append(ll[x]['4. close'])
+               today= '%.2f' % float(B[tickName][-1])
 
-        sell_stock,future_value= get_prediction(B[tickName])
-        A[tickName]=(sell_stock,future_value,today)
-    print "A is",A
+            sell_stock,future_value= get_prediction(B[tickName])
+            A[tickName]=(sell_stock,future_value,today)
+            print "A is",A
+        else:
+            continue
     return render(request, 'prediction.html',{'predictions': A,})
 
 def get_prediction(data_list):
