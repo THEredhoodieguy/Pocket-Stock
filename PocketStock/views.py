@@ -114,7 +114,7 @@ def get_prediction(data_list):
         count01 = 0.0
         count10 = 0.0
         percentage = 0.0
-        v=len(data_list1)-5
+        v=len(data_list1)-20
 
 
         for i in range(v, len(data_list1) - 1):
