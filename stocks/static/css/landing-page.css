@@ -173,12 +173,14 @@ p.copyright {
 
 
 .post-body{
+    font-weight: normal;
     max-height: 250px;
     padding-left: 10px;
     overflow-y: auto;
 }
 
 .post-details{
+    font-weight: normal;
     margin-top: 5px;
     padding-left: 10px;
     padding-bottom: 10px;
