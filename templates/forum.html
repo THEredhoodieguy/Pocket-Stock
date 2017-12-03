@@ -8,14 +8,14 @@
         <div class="col-md-12">
           <form action="/forum/" method="POST">
                {% csrf_token %}
-                <h3>Make Post</h3>
+                <h3 style="padding-left:10px;">Create a new post</h3>
                 <div class="new-post-block">
                     <div class="new-post-block-child"><input id="title" class="titleLength" name="posttitle" type="text" placeholder="Post Title" required></div>
                     <div class="new-post-block-child"><textarea  name="postbody" rows="4" cols="100" placeholder="Post Body.."></textarea></div>
                     <div class="new-post-block-child"><input type="submit" class="btn-sub" value="Post"></div>
                 </div>
           </form>
-          <h3>Posts:</h3>
+          <h3 style="padding-top:20px; padding-left:15px;">Posts</h3>
             <div>
 
               {% for post in posts %}
