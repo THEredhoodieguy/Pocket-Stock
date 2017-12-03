@@ -207,11 +207,11 @@ SOCIAL_AUTH_RAISE_EXCEPTIONS = False
 # EMAIL_USE_TLS = True
 
 EMAIL_HOST = 'smtp.sendgrid.net'
-EMAIL_HOST_USER = 'pocketstock' # email id
-EMAIL_HOST_PASSWORD = 'M@ar2094' #password
+EMAIL_HOST_USER = 'MAAR_group5' # email id
+EMAIL_HOST_PASSWORD = 'M@ar5843' #password
 EMAIL_PORT = 587
 EMAIL_USE_TLS = True
-DEFAULT_FROM_EMAIL = 'support@pocketstock.com'
+DEFAULT_FROM_EMAIL = 'admin@pocketstock.com'
 
 CHANNEL_LAYERS = {
     "default": {
