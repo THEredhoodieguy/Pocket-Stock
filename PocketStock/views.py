@@ -202,7 +202,7 @@ def registered_home(request):
         obj['fullname'] = i.whichStock.fullName
         link = '/stockProfile?stockname=' + i.whichStock.tickerName
         obj['link'] = link
-        obj['valuation'] = i.numberPurchased * company_statuses[i.whichStock]
+        obj['valuation'] = '%.2f' % float(i.numberPurchased * company_statuses[i.whichStock])
         output_list.append(obj)
 
     return render(request, 'dashboard.html', {
