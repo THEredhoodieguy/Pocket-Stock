@@ -12,8 +12,10 @@
     </thead>
     <tbody>
       {% for room in rooms %}
-      <th></th>
-      <td><a href="/chat/{{room.label}}">{{room.label}}</a></td>
+      <tr>
+        <th></th>
+        <td><a href="/chat/{{room.label}}">{{room.label}}</a></td>
+      </tr>
       {% endfor %}
     </tbody>
   </table>
