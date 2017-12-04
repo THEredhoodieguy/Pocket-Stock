@@ -10,19 +10,19 @@
                {% csrf_token %}
                 <h3 style="padding-left:10px;">Create Post</h3>
                 <div class="new-post-block" style="background-color:#F8F9FA; width:70%;">
-                    <div class="new-post-block-child" style="margin-top:15px;"><input id="title" class="form-control" style="width=300px" name="posttitle" type="text" placeholder="Post Title" required></div>
-                    <div class="new-post-block-child" style="margin-top:15px;"><textarea  name="postbody" class="form-control" rows="6" cols="100" placeholder="Post Body.."></textarea></div>
+                    <div class="new-post-block-child" style="margin-top:15px;"><input id="title" class="form-control" style="width:300px" name="posttitle" type="text" placeholder="Post Title" required></div>
+                    <div class="new-post-block-child" style="margin-top:15px;"><textarea  name="postbody" class="form-control" rows="8" cols="100" placeholder="Post Body.."></textarea></div>
                     <div class="new-post-block-child"><input type="submit" class="btn-sub" value="Post"></div>
                 </div>
           </form>
-          <h3 style="padding-top:20px; padding-left:15px;">Posts</h3>
+          <h3 style="padding-top:20px; padding-left:10px;">Posts</h3>
             <div>
 
               {% for post in posts %}
                   <div class="post-border" >
                       <div class="post-title">{{ post.messageTitle }}</div>
                       <div class="post-body">{{ post.messageBody }}</div>
-                      <div class="post-details">Posted By: {{ post.username }} &nbsp &nbsp On: {{post.date}}</div>
+                      <div class="post-details">Posted By: {{ post.username }} &nbsp;&nbsp; On: {{post.date}}</div>
                   </div>
               {% endfor %}
 
