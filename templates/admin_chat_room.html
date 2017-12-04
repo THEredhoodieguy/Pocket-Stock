@@ -1,0 +1,23 @@
+{% extends 'dashboard.html' %}
+
+{% block content %}
+
+  <div class="container">
+
+  <table class="table">
+    <thead>
+      <tr>
+        <th scope="col">User Chat Room</th>
+      </tr>
+    </thead>
+    <tbody>
+      {% for room in rooms %}
+      <th></th>
+      <td><a href="/chat/{{room.label}}">{{room.label}}</a></td>
+      {% endfor %}
+    </tbody>
+  </table>
+
+  </div>
+
+{% endblock %}

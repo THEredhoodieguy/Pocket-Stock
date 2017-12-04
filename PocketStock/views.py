@@ -524,6 +524,12 @@ def forumPage(request):
 @login_required
 @duo_auth.duo_auth_required
 def chat_room(request, label):
+
+    #check to make sure that this use is connecting to the proper chat room
+    #only advisors should be able to connect to chat rooms that don't belong to them
+    if ('advisor' not in request.user.groups.values_list('name', flat=True) and label != request.user.username):
+        return chat_room(request, request.user.username)
+
     # If the room with the given label doesn't exist, automatically create it
     # upon first visit (a la etherpad).
     room, created = Room.objects.get_or_create(label=label)
@@ -535,6 +541,29 @@ def chat_room(request, label):
         'room': room,
         'messages': messages,
     })
+
+
+@login_required
+@duo_auth.duo_auth_required
+def chat_room_direct(request):
+    """directs a user to the proper chat room or redirects an admin to the admin chat room layout"""
+    if ('advisor' in request.user.groups.values_list('name', flat=True)):
+        return chat_room_admin(request)
+    else:
+        return chat_room(request, request.user.username)
+
+
+@login_required
+@duo_auth.duo_auth_required
+def chat_room_admin(request):
+    """allows an admin to connect to any chatroom"""
+
+    rooms = Room.objects.all()
+
+    return render(request, "admin_chat_room.html", {
+        'rooms': rooms
+        })
+
 
 @login_required
 @duo_auth.duo_auth_required

@@ -46,7 +46,8 @@ urlpatterns = [
     url(r'^stockProfile/$', views.stockProfile, name='stockProfile'),
     url(r'^forum/', views.forumPage, name="forum"),
 
-    url(r'^chat/new/$', views.new_room, name='new_room'),
+    url(r'^chat/$', views.chat_room_direct, name='chat'),
+    #url(r'^chat/new/$', views.new_room, name='new_room'),
     url(r'^chat/(?P<label>[\w-]{,50})/$', views.chat_room, name='chat_room'),
 ]
 
