@@ -8,10 +8,10 @@
         <div class="col-md-12">
           <form action="/forum/" method="POST">
                {% csrf_token %}
-                <h3 style="padding-left:10px;">Create a new post</h3>
-                <div class="new-post-block" style="background-color:#F8F9FA;">
-                    <div class="new-post-block-child"><input id="title" class="titleLength" name="posttitle" type="text" placeholder="Post Title" required></div>
-                    <div class="new-post-block-child"><textarea  name="postbody" rows="4" cols="100" placeholder="Post Body.."></textarea></div>
+                <h3 style="padding-left:10px;">Create Post</h3>
+                <div class="new-post-block" style="background-color:#F8F9FA;width=70%;">
+                    <div class="new-post-block-child" style="margin-top:15px;"><input id="title" class="titleLength" name="posttitle" type="text" placeholder="Post Title" required></div>
+                    <div class="new-post-block-child" style="margin-top:15px;"><textarea  name="postbody" rows="6" cols="100" placeholder="Post Body.."></textarea></div>
                     <div class="new-post-block-child"><input type="submit" class="btn-sub" value="Post"></div>
                 </div>
           </form>
