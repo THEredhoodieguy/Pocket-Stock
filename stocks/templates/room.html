@@ -2,8 +2,8 @@
 
 {% block content %}
   {% load staticfiles %}
-  <div class="container">
-     <div class="c" style="width:60%; margin: auto;">
+  <div class="container" style="padding:40px;">
+     <div class="c" style="width:60%; margin: auto;  background-color: white; padding:20px;">
       <h1>Chat Room:</h1>
       <!--<p class="quiet">-->
         <!--Anyone with this URL can join the room and chat:-->
@@ -14,7 +14,7 @@
         <input id="handle" type="text" placeholder="handle" value= {{request.user.username}} readonly>
       </p>
       <form id="chatform">
-        <table id="chat" style="margin: auto">
+        <table id="chat">
           <tbody>
             {% for message in messages %}
               <tr>
