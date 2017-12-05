@@ -3,6 +3,8 @@ from __future__ import unicode_literals
 
 from django.shortcuts import render, HttpResponse, redirect
 
+from django.http import HttpResponse
+
 from django.contrib.auth import login, authenticate
 from django.contrib.auth.forms import UserCreationForm
 from PocketStock.forms import RegistrationForm, TransactionAddForm
