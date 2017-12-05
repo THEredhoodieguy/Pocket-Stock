@@ -550,7 +550,8 @@ def chat_room_direct(request):
     if ('advisor' in request.user.groups.values_list('name', flat=True)):
         return chat_room_admin(request)
     else:
-        return chat_room(request, request.user.username)
+        return HttpResponseRedirect('/chat/' + request.user.username)
+        #return chat_room(request, request.user.username)
 
 
 @login_required
