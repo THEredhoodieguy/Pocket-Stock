@@ -2,6 +2,8 @@
 
 {% block content %}
   {% load staticfiles %}
+  <div class="container">
+    <div class="row">
   <h1>{{ room.label }}</h1>
   <p class="quiet">
     Anyone with this URL can join the room and chat: 
@@ -32,6 +34,8 @@
       </tfoot>
     </table>
   </form>
+  </div>
+  </div>
 {% endblock content %}
 
 {% block scripts %}
