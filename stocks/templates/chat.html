@@ -3,15 +3,15 @@
 {% block content %}
   {% load staticfiles %}
   <div class="container">
-    <div class="row">
-  <h1>{{ room.label }}</h1>
-  <p class="quiet">
-    Anyone with this URL can join the room and chat: 
-    <code>{{ request.scheme }}://{{ request.get_host }}/chat/{{ room.label }}</code> 
-  </p>
+    <div class="c" style="width:60%; margin: auto;">
+  <h1>Chat Room:</h1>
+  <!--<p class="quiet">-->
+    <!--Anyone with this URL can join the room and chat: -->
+    <!--<code>{{ request.scheme }}://{{ request.get_host }}/chat/{{ room.label }}</code> -->
+  <!--</p>-->
   <p>
-    <label for="handle">Your name:</label>
-    <input id="handle" type="text" placeholder="handle" value= {{request.user.username}} >
+    <label for="handle">Your Chat Name:</label>
+    <input id="handle" type="text" placeholder="handle" value= {{request.user.username}} readonly>
   </p>
   <form id="chatform">
     <table id="chat" style="margin: auto">
@@ -29,7 +29,7 @@
         <td>Say something:</td>
         <td colspan=2>
           <input id="message" type="text" placeholder="message">
-          <button type="submit" id="go">Say it</button>
+          <button type="submit" id="go">Send!</button>
         </td>
       </tfoot>
     </table>
