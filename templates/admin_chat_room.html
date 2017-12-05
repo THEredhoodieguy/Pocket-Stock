@@ -3,19 +3,14 @@
 {% block content %}
 
   <div class="container">
-    <div class="row">
-        <div class="col-md-12">
+    <div class="row" style="margin-bottom:10px;">
+        <div style="width:60%; margin:auto; background-color:white;">
+          <h1 style="margin-top:20px">Chat Rooms:</h1>
           <table class="table">
-            <thead>
-              <tr>
-                <th scope="col">User Chat Room</th>
-              </tr>
-            </thead>
             <tbody>
               {% for room in rooms %}
               <tr>
-                <th></th>
-                <td><a href="/chat/{{room.label}}">{{room.label}}</a></td>
+                <td style="text-align:center;"><a href="/chat/{{room.label}}">{{room.label}}</a></td>
               </tr>
               {% endfor %}
             </tbody>
