@@ -9,10 +9,10 @@
   </p>
   <p>
     <label for="handle">Your name:</label>
-    <input id="handle" type="text" placeholder="handle">
+    <input id="handle" type="text" placeholder="handle" value= {{request.user.username}} >
   </p>
   <form id="chatform">
-    <table id="chat">
+    <table id="chat" style="margin: auto">
       <tbody>
         {% for message in messages %}
           <tr>
